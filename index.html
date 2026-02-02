@@ -3,978 +3,524 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Let's Go Padel League - Carryduff</title>
+    <title>Let's Go Padel League Series - Carryduff</title>
     <style>
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
         }
-        
+
         body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #1a1a2e 100%);
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 50%, #1a1a1a 100%);
             min-height: 100vh;
-            color: #e5e5e5;
+            color: #ffffff;
+            line-height: 1.6;
         }
-        
+
         .container {
-            max-width: 1200px;
+            max-width: 900px;
             margin: 0 auto;
-            padding: 0 1rem;
-        }
-        
-        /* Header */
-        .header {
-            background: linear-gradient(135deg, #84cc16 0%, #22c55e 100%);
-            padding: 3rem 1rem;
-            text-align: center;
-            color: white;
-        }
-        
-        .header-logo {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin-bottom: 1rem;
-        }
-        
-        .logo-circle {
-            width: 48px;
-            height: 48px;
-            background: #bef264;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin-right: 1rem;
-        }
-        
-        .logo-inner {
-            width: 32px;
-            height: 32px;
-            background: white;
-            border-radius: 50%;
-        }
-        
-        .header h1 {
-            font-size: 3rem;
-            font-weight: 900;
-            font-style: italic;
-        }
-        
-        .header h2 {
-            font-size: 1.875rem;
-            margin-bottom: 0.5rem;
-        }
-        
-        .header p {
-            font-size: 1.25rem;
-            font-weight: 600;
-        }
-        
-        /* Navigation */
-        .nav {
-            background: #1f2937;
-            border-bottom: 1px solid #374151;
-        }
-        
-        .nav-container {
-            display: flex;
-            gap: 0.5rem;
-            overflow-x: auto;
-        }
-        
-        .nav-btn {
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-            padding: 1rem 1.5rem;
-            font-weight: 600;
-            border: none;
-            cursor: pointer;
-            background: transparent;
-            color: #d1d5db;
-            transition: all 0.2s;
-            white-space: nowrap;
-        }
-        
-        .nav-btn:hover {
-            background: #374151;
-        }
-        
-        .nav-btn.active {
-            background: #84cc16;
-            color: white;
-        }
-        
-        /* Main Content */
-        .main {
             padding: 2rem 1rem;
         }
-        
-        /* Info Box */
-        .info-box {
-            background: rgba(132, 204, 22, 0.1);
-            border: 1px solid rgba(132, 204, 22, 0.3);
-            border-radius: 0.5rem;
-            padding: 1rem;
+
+        /* Header / Logo */
+        .header {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        .logo {
+            display: inline-block;
             margin-bottom: 1.5rem;
-            display: flex;
-            gap: 0.75rem;
         }
-        
-        .info-box-text {
-            color: #84cc16;
-            font-size: 0.875rem;
+
+        .logo-text {
+            font-size: 2.5rem;
+            font-weight: 900;
+            font-style: italic;
+            color: #a3e635;
+            text-transform: uppercase;
+            line-height: 1.1;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
         }
-        
-        .info-link {
+
+        .logo-ball {
+            display: inline-block;
+            width: 12px;
+            height: 12px;
+            background: #a3e635;
+            border-radius: 50%;
+            margin-left: 5px;
+            vertical-align: super;
+        }
+
+        .main-title {
+            font-size: 1.8rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-bottom: 0.5rem;
+        }
+
+        .subtitle {
+            font-size: 1.2rem;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            color: #cccccc;
+        }
+
+        /* Section styling */
+        .section {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 12px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .section-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            text-transform: uppercase;
             text-decoration: underline;
-            cursor: pointer;
-            color: #84cc16;
+            text-decoration-color: #a3e635;
+            text-underline-offset: 8px;
+            text-align: center;
+            margin-bottom: 1.5rem;
+            letter-spacing: 2px;
         }
-        
-        .info-link:hover {
+
+        /* Teams list */
+        .teams-list {
+            list-style: none;
+            text-align: center;
+        }
+
+        .teams-list li {
+            font-size: 1.1rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            padding: 0.75rem 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .teams-list li:last-child {
+            border-bottom: none;
+        }
+
+        /* Schedule */
+        .schedule-item {
+            text-align: center;
+            padding: 1rem 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .schedule-item:last-child {
+            border-bottom: none;
+        }
+
+        .week-title {
+            font-size: 1.1rem;
+            font-weight: 700;
+            text-transform: uppercase;
+        }
+
+        .week-dates {
+            color: #cccccc;
+        }
+
+        .deadline {
+            color: #a3e635;
+            font-weight: 600;
+            font-style: italic;
+        }
+
+        .finals-note {
+            font-size: 0.9rem;
+            color: #999;
+            font-style: italic;
+            margin-top: 0.5rem;
+        }
+
+        /* Fixtures */
+        .fixture {
+            text-align: center;
+            padding: 1rem 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .fixture:last-child {
+            border-bottom: none;
+        }
+
+        .fixture-teams {
+            font-weight: 600;
+            text-transform: uppercase;
+            font-size: 0.95rem;
+        }
+
+        .fixture-vs {
+            color: #a3e635;
+            font-weight: 700;
+            margin: 0 0.5rem;
+        }
+
+        .fixture-note {
+            text-align: center;
+            margin-top: 1.5rem;
+            padding: 1rem;
+            background: rgba(163, 230, 53, 0.1);
+            border-radius: 8px;
+            font-style: italic;
             color: #a3e635;
         }
-        
-        /* Week Cards */
-        .week-card {
-            background: #1f2937;
-            border: 1px solid #374151;
-            border-radius: 0.5rem;
-            overflow: hidden;
-            margin-bottom: 1.5rem;
-        }
-        
-        .week-header {
-            background: linear-gradient(135deg, #84cc16 0%, #22c55e 100%);
-            padding: 1rem;
-            color: white;
-        }
-        
-        .week-header h3 {
-            font-size: 1.5rem;
-            margin-bottom: 0.25rem;
-        }
-        
-        .week-content {
-            padding: 1rem;
-        }
-        
-        /* Fixture */
-        .fixture {
-            background: rgba(55, 65, 81, 0.5);
-            padding: 1rem;
-            border-radius: 0.5rem;
-            margin-bottom: 0.75rem;
-        }
-        
-        .fixture-match {
-            display: grid;
-            grid-template-columns: 1fr auto 1fr;
-            gap: 1rem;
-            align-items: center;
-        }
-        
-        .team-left {
-            text-align: right;
-            font-weight: 600;
-        }
-        
-        .team-right {
-            text-align: left;
-            font-weight: 600;
-        }
-        
-        .score-box {
+
+        /* Navigation tabs */
+        .nav {
             display: flex;
-            align-items: center;
-            gap: 0.75rem;
-            padding: 0.5rem 1rem;
-            background: #111827;
-            border-radius: 0.5rem;
-            min-width: 100px;
             justify-content: center;
-        }
-        
-        .score {
-            font-size: 1.5rem;
-            font-weight: 700;
-            color: #84cc16;
-        }
-        
-        .score-sep {
-            color: #6b7280;
-        }
-        
-        .vs-text {
-            color: #6b7280;
-            font-weight: 600;
-        }
-        
-        /* Result Input */
-        .result-input {
-            width: 64px;
-            background: #111827;
-            color: #84cc16;
-            text-align: center;
-            font-size: 1.25rem;
-            font-weight: 700;
-            border: 1px solid #374151;
-            border-radius: 0.25rem;
-            padding: 0.25rem 0.5rem;
-        }
-        
-        .result-input:focus {
-            outline: none;
-            border-color: #84cc16;
-        }
-        
-        .points-display {
-            text-align: center;
-            font-size: 0.75rem;
-            color: #9ca3af;
-            margin-top: 0.75rem;
-        }
-        
-        /* Table */
-        .standings-table {
-            width: 100%;
-            border-collapse: collapse;
-        }
-        
-        .standings-table thead {
-            background: #111827;
-        }
-        
-        .standings-table th {
-            padding: 1rem;
-            text-align: left;
-            color: #9ca3af;
-            font-size: 0.875rem;
-            font-weight: 600;
-        }
-        
-        .standings-table td {
-            padding: 1rem;
-            border-top: 1px solid #374151;
-        }
-        
-        .standings-table tr:hover {
-            background: rgba(55, 65, 81, 0.5);
-        }
-        
-        .standings-table tr.first {
-            background: rgba(132, 204, 22, 0.1);
-        }
-        
-        .standings-table tr.second {
-            background: rgba(132, 204, 22, 0.05);
-        }
-        
-        .standings-table .text-center {
-            text-align: center;
-        }
-        
-        .pos-cell {
-            display: flex;
-            align-items: center;
             gap: 0.5rem;
+            margin-bottom: 2rem;
+            flex-wrap: wrap;
         }
-        
-        .award-icon {
-            color: #84cc16;
-        }
-        
-        .points-badge {
-            background: #84cc16;
-            color: white;
-            font-weight: 700;
-            padding: 0.25rem 0.75rem;
-            border-radius: 9999px;
-            display: inline-block;
-        }
-        
-        /* Team Cards */
-        .teams-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 1.5rem;
-        }
-        
-        .team-card {
-            background: #1f2937;
-            border: 1px solid #374151;
-            border-radius: 0.5rem;
-            overflow: hidden;
-        }
-        
-        .team-header {
-            background: linear-gradient(135deg, #84cc16 0%, #22c55e 100%);
-            padding: 1rem;
-            color: white;
-        }
-        
-        .team-content {
-            padding: 1.5rem;
-        }
-        
-        .player {
-            display: flex;
-            align-items: center;
-            gap: 0.75rem;
-            margin-bottom: 0.75rem;
-        }
-        
-        .player-avatar {
-            width: 40px;
-            height: 40px;
-            background: #84cc16;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: white;
-            font-weight: 700;
-            font-size: 0.875rem;
-        }
-        
-        .team-stats {
-            border-top: 1px solid #374151;
-            padding-top: 1rem;
-            margin-top: 1rem;
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 0.5rem;
-            text-align: center;
-        }
-        
-        .stat-label {
-            color: #9ca3af;
-            font-size: 0.875rem;
-        }
-        
-        .stat-value {
-            font-weight: 700;
-            margin-top: 0.25rem;
-        }
-        
-        /* Modal */
-        .modal {
-            display: none;
-            position: fixed;
-            inset: 0;
-            background: rgba(0, 0, 0, 0.7);
-            z-index: 50;
-            padding: 1rem;
-            align-items: center;
-            justify-content: center;
-        }
-        
-        .modal.active {
-            display: flex;
-        }
-        
-        .modal-content {
-            background: #1f2937;
-            border: 1px solid #84cc16;
-            border-radius: 0.5rem;
-            padding: 1.5rem;
-            max-width: 42rem;
-            width: 100%;
-            max-height: 90vh;
-            overflow-y: auto;
-        }
-        
-        .modal-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 1rem;
-        }
-        
-        .modal-close {
-            background: none;
+
+        .nav-btn {
+            padding: 0.75rem 1.5rem;
+            background: rgba(255, 255, 255, 0.1);
             border: none;
-            color: #9ca3af;
-            font-size: 1.5rem;
+            border-radius: 8px;
+            color: #ffffff;
+            font-weight: 600;
+            text-transform: uppercase;
             cursor: pointer;
-            padding: 0;
-            width: 32px;
-            height: 32px;
+            transition: all 0.3s ease;
+            font-size: 0.9rem;
         }
-        
-        .modal-close:hover {
-            color: white;
+
+        .nav-btn:hover {
+            background: rgba(163, 230, 53, 0.2);
         }
-        
-        .modal-section {
-            margin-bottom: 1rem;
+
+        .nav-btn.active {
+            background: #a3e635;
+            color: #1a1a1a;
         }
-        
-        .modal-section h4 {
-            color: #84cc16;
-            font-weight: 700;
-            margin-bottom: 0.5rem;
-        }
-        
-        .modal-section p {
-            color: #d1d5db;
-            margin-bottom: 0.25rem;
-        }
-        
-        /* Footer */
-        .footer {
-            background: #111827;
-            border-top: 1px solid #374151;
-            padding: 1.5rem 1rem;
-            margin-top: 3rem;
-            text-align: center;
-            color: #9ca3af;
-        }
-        
-        .footer p {
-            margin-bottom: 0.5rem;
-        }
-        
-        /* Hidden */
-        .hidden {
+
+        /* Tab content */
+        .tab-content {
             display: none;
         }
-        
+
+        .tab-content.active {
+            display: block;
+        }
+
+        /* Week selector for fixtures */
+        .week-selector {
+            display: flex;
+            justify-content: center;
+            gap: 0.5rem;
+            margin-bottom: 1.5rem;
+            flex-wrap: wrap;
+        }
+
+        .week-btn {
+            padding: 0.5rem 1rem;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 6px;
+            color: #cccccc;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 0.85rem;
+        }
+
+        .week-btn:hover {
+            border-color: #a3e635;
+            color: #a3e635;
+        }
+
+        .week-btn.active {
+            background: #a3e635;
+            border-color: #a3e635;
+            color: #1a1a1a;
+        }
+
+        .fixtures-week {
+            display: none;
+        }
+
+        .fixtures-week.active {
+            display: block;
+        }
+
         /* Responsive */
-        @media (max-width: 768px) {
-            .header h1 {
+        @media (max-width: 600px) {
+            .logo-text {
                 font-size: 2rem;
             }
-            
-            .header h2 {
-                font-size: 1.5rem;
+
+            .main-title {
+                font-size: 1.4rem;
             }
-            
-            .fixture-match {
-                font-size: 0.875rem;
+
+            .section {
+                padding: 1.5rem 1rem;
             }
-            
-            .standings-table {
-                font-size: 0.875rem;
+
+            .fixture-teams {
+                font-size: 0.85rem;
             }
-            
-            .standings-table th,
-            .standings-table td {
-                padding: 0.5rem;
+
+            .nav-btn {
+                padding: 0.6rem 1rem;
+                font-size: 0.8rem;
             }
         }
     </style>
 </head>
 <body>
-    <!-- Header -->
-    <div class="header">
-        <div class="container">
-            <div class="header-logo">
-                <div class="logo-circle">
-                    <div class="logo-inner"></div>
-                </div>
-                <h1>LET'S GO PADEL</h1>
+    <div class="container">
+        <!-- Header -->
+        <header class="header">
+            <div class="logo">
+                <div class="logo-text">LET'S<br>GO PADEL<span class="logo-ball"></span></div>
             </div>
-            <h2>LEAGUE SERIES</h2>
-            <p>CARRYDUFF - GROUP A</p>
-        </div>
-    </div>
+            <h1 class="main-title">Let's Go Padel League Series</h1>
+            <p class="subtitle">Carryduff</p>
+        </header>
 
-    <!-- Navigation -->
-    <div class="nav">
-        <div class="container">
-            <div class="nav-container">
-                <button class="nav-btn active" onclick="showTab('fixtures')">📅 Fixtures</button>
-                <button class="nav-btn" onclick="showTab('results')">📊 Results</button>
-                <button class="nav-btn" onclick="showTab('standings')">🏆 Standings</button>
-                <button class="nav-btn" onclick="showTab('teams')">👥 Teams</button>
-            </div>
-        </div>
-    </div>
-
-    <!-- Main Content -->
-    <div class="main container">
-        <!-- Fixtures Tab -->
-        <div id="fixtures-tab">
-            <div class="info-box">
-                <span style="flex-shrink: 0;">ℹ️</span>
-                <div class="info-box-text">
-                    <p style="font-weight: 600; margin-bottom: 0.25rem;">Match Format: Best of 3 Sets</p>
-                    <p>Win 3 sets → 3 points | Win 2 sets → 2 points | Losing team → 1 point</p>
-                    <span class="info-link" onclick="showModal()">View full scoring rules</span>
-                </div>
-            </div>
-
-            <div id="fixtures-content"></div>
-        </div>
-
-        <!-- Results Tab -->
-        <div id="results-tab" class="hidden">
-            <div class="info-box">
-                <div class="info-box-text">
-                    <p style="margin-bottom: 0.5rem;"><strong>Admin Mode:</strong> Enter number of sets won (0-3)</p>
-                    <p style="font-size: 0.75rem;">Points awarded: Win 3 sets = 3pts | Win 2 sets = 2pts | Losing team = 1pt</p>
-                </div>
-            </div>
-
-            <div id="results-content"></div>
-        </div>
-
-        <!-- Standings Tab -->
-        <div id="standings-tab" class="hidden">
-            <div class="info-box">
-                <span style="flex-shrink: 0;">ℹ️</span>
-                <div class="info-box-text">
-                    <p>Standings sorted by: Points → Set Difference → Sets For</p>
-                    <p style="margin-top: 0.25rem;">P = Played | W = Won | L = Lost | SF = Sets For | SA = Sets Against | SD = Set Difference</p>
-                </div>
-            </div>
-
-            <div class="week-card">
-                <div class="week-header">
-                    <h3>🏆 League Standings</h3>
-                </div>
-                <div class="week-content" style="padding: 0; overflow-x: auto;">
-                    <table class="standings-table" id="standings-table">
-                        <thead>
-                            <tr>
-                                <th>Pos</th>
-                                <th>Team</th>
-                                <th class="text-center">P</th>
-                                <th class="text-center">W</th>
-                                <th class="text-center">L</th>
-                                <th class="text-center">SF</th>
-                                <th class="text-center">SA</th>
-                                <th class="text-center">SD</th>
-                                <th class="text-center">Pts</th>
-                            </tr>
-                        </thead>
-                        <tbody id="standings-body"></tbody>
-                    </table>
-                </div>
-            </div>
-        </div>
+        <!-- Navigation -->
+        <nav class="nav">
+            <button class="nav-btn active" onclick="showTab('teams')">Teams</button>
+            <button class="nav-btn" onclick="showTab('schedule')">Schedule</button>
+            <button class="nav-btn" onclick="showTab('fixtures')">Fixtures</button>
+        </nav>
 
         <!-- Teams Tab -->
-        <div id="teams-tab" class="hidden">
-            <div class="teams-grid" id="teams-content"></div>
+        <div id="teams" class="tab-content active">
+            <section class="section">
+                <h2 class="section-title">Group A</h2>
+                <ul class="teams-list">
+                    <li>James Harris / Lewis Deane</li>
+                    <li>Adam Simms / Thomas Armstrong</li>
+                    <li>Angus Boyle / Callum Mackie</li>
+                    <li>Jack Lavery / James McKiver</li>
+                    <li>Chris Moffett / Kevin O'Hare</li>
+                    <li>Pete Boyle / Brian Dawson</li>
+                </ul>
+            </section>
         </div>
-    </div>
 
-    <!-- Modal -->
-    <div class="modal" id="modal" onclick="if(event.target === this) hideModal()">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h3 style="font-size: 1.5rem; font-weight: 700;">Scoring System</h3>
-                <button class="modal-close" onclick="hideModal()">✕</button>
-            </div>
-            <div class="modal-section">
-                <h4>Match Format</h4>
-                <p>• All matches are best of 3 sets</p>
-                <p>• Allow 1hr 30 mins to play matches in full</p>
-            </div>
-            <div class="modal-section">
-                <h4>Points Allocation</h4>
-                <p style="font-weight: 600;">• Win 3 sets → 3 league points</p>
-                <p style="font-weight: 600;">• Win 2 sets → 2 league points</p>
-                <p style="font-weight: 600;">• Losing team → 1 league point</p>
-            </div>
-            <div class="modal-section">
-                <h4>Unplayed Matches</h4>
-                <p>• Both teams unable to play → 1 point each</p>
-                <p>• One team forfeits → Other team gets 3 points</p>
-            </div>
-            <div class="modal-section">
-                <h4>Finals Week</h4>
-                <p>• Week 6: 1st vs 2nd, 3rd vs 4th, 5th vs 6th</p>
-                <p>• Determines final league positions</p>
-            </div>
+        <!-- Schedule Tab -->
+        <div id="schedule" class="tab-content">
+            <section class="section">
+                <h2 class="section-title">Group A</h2>
+
+                <div class="schedule-item">
+                    <div class="week-title">Week 1: <span class="week-dates">2<sup>nd</sup> to 8<sup>th</sup> Feb</span></div>
+                    <div class="deadline">(Deadline for matches Friday 13<sup>th</sup> Feb)</div>
+                </div>
+
+                <div class="schedule-item">
+                    <div class="week-title">Week 2: <span class="week-dates">9<sup>th</sup> to 15<sup>th</sup> Feb</span></div>
+                    <div class="deadline">(Deadline for matches Friday 20<sup>th</sup> Feb)</div>
+                </div>
+
+                <div class="schedule-item">
+                    <div class="week-title">Week 3: <span class="week-dates">16<sup>th</sup> to 22<sup>nd</sup> Feb</span></div>
+                    <div class="deadline">(Deadline for matches Friday 27<sup>th</sup> Feb)</div>
+                </div>
+
+                <div class="schedule-item">
+                    <div class="week-title">Week 4: <span class="week-dates">23<sup>rd</sup> Feb to 1<sup>st</sup> March</span></div>
+                    <div class="deadline">(Deadline for matches Friday 6<sup>th</sup> March)</div>
+                </div>
+
+                <div class="schedule-item">
+                    <div class="week-title">Week 5: <span class="week-dates">2<sup>nd</sup> to 8<sup>th</sup> March</span></div>
+                    <div class="deadline">(Deadline for matches Sunday 8<sup>th</sup> March)</div>
+                </div>
+
+                <div class="schedule-item">
+                    <div class="week-title">Week 6: <span class="week-dates">9<sup>th</sup> to 15<sup>th</sup> March</span></div>
+                    <div class="deadline">(Deadline for matches Sunday 15<sup>th</sup> March)</div>
+                    <div class="finals-note">As this is finals week, further details will be announced in due course</div>
+                </div>
+            </section>
         </div>
-    </div>
 
-    <!-- Footer -->
-    <div class="footer">
-        <div class="container">
-            <p style="font-weight: 600;">Let's Go Padel League Series - Carryduff</p>
-            <p style="font-size: 0.875rem;">6-Week Round Robin Format • Group A</p>
+        <!-- Fixtures Tab -->
+        <div id="fixtures" class="tab-content">
+            <section class="section">
+                <h2 class="section-title">Fixtures</h2>
+
+                <div class="week-selector">
+                    <button class="week-btn active" onclick="showWeek(1)">Week 1</button>
+                    <button class="week-btn" onclick="showWeek(2)">Week 2</button>
+                    <button class="week-btn" onclick="showWeek(3)">Week 3</button>
+                    <button class="week-btn" onclick="showWeek(4)">Week 4</button>
+                    <button class="week-btn" onclick="showWeek(5)">Week 5</button>
+                    <button class="week-btn" onclick="showWeek(6)">Week 6</button>
+                </div>
+
+                <!-- Week 1 -->
+                <div id="week-1" class="fixtures-week active">
+                    <div class="fixture">
+                        <div class="fixture-teams">
+                            James Harris / Lewis Deane <span class="fixture-vs">vs</span> Adam Simms / Thomas Armstrong
+                        </div>
+                    </div>
+                    <div class="fixture">
+                        <div class="fixture-teams">
+                            Angus Boyle / Callum Mackie <span class="fixture-vs">vs</span> Pete Boyle / Brian Dawson
+                        </div>
+                    </div>
+                    <div class="fixture">
+                        <div class="fixture-teams">
+                            Jack Lavery / James McKiver <span class="fixture-vs">vs</span> Chris Moffett / Kevin O'Hare
+                        </div>
+                    </div>
+                    <div class="fixture-note">
+                        Matches to be played on or before Friday 13<sup>th</sup> Feb
+                    </div>
+                </div>
+
+                <!-- Week 2 -->
+                <div id="week-2" class="fixtures-week">
+                    <div class="fixture">
+                        <div class="fixture-teams">
+                            James Harris / Lewis Deane <span class="fixture-vs">vs</span> Angus Boyle / Callum Mackie
+                        </div>
+                    </div>
+                    <div class="fixture">
+                        <div class="fixture-teams">
+                            Adam Simms / Thomas Armstrong <span class="fixture-vs">vs</span> Jack Lavery / James McKiver
+                        </div>
+                    </div>
+                    <div class="fixture">
+                        <div class="fixture-teams">
+                            Chris Moffett / Kevin O'Hare <span class="fixture-vs">vs</span> Pete Boyle / Brian Dawson
+                        </div>
+                    </div>
+                    <div class="fixture-note">
+                        Matches to be played on or before Friday 20<sup>th</sup> Feb
+                    </div>
+                </div>
+
+                <!-- Week 3 -->
+                <div id="week-3" class="fixtures-week">
+                    <div class="fixture">
+                        <div class="fixture-teams">
+                            James Harris / Lewis Deane <span class="fixture-vs">vs</span> Jack Lavery / James McKiver
+                        </div>
+                    </div>
+                    <div class="fixture">
+                        <div class="fixture-teams">
+                            Angus Boyle / Callum Mackie <span class="fixture-vs">vs</span> Chris Moffett / Kevin O'Hare
+                        </div>
+                    </div>
+                    <div class="fixture">
+                        <div class="fixture-teams">
+                            Adam Simms / Thomas Armstrong <span class="fixture-vs">vs</span> Pete Boyle / Brian Dawson
+                        </div>
+                    </div>
+                    <div class="fixture-note">
+                        Matches to be played on or before Friday 27<sup>th</sup> Feb
+                    </div>
+                </div>
+
+                <!-- Week 4 -->
+                <div id="week-4" class="fixtures-week">
+                    <div class="fixture">
+                        <div class="fixture-teams">
+                            James Harris / Lewis Deane <span class="fixture-vs">vs</span> Chris Moffett / Kevin O'Hare
+                        </div>
+                    </div>
+                    <div class="fixture">
+                        <div class="fixture-teams">
+                            Jack Lavery / James McKiver <span class="fixture-vs">vs</span> Pete Boyle / Brian Dawson
+                        </div>
+                    </div>
+                    <div class="fixture">
+                        <div class="fixture-teams">
+                            Adam Simms / Thomas Armstrong <span class="fixture-vs">vs</span> Angus Boyle / Callum Mackie
+                        </div>
+                    </div>
+                    <div class="fixture-note">
+                        Matches to be played on or before Friday 6<sup>th</sup> March
+                    </div>
+                </div>
+
+                <!-- Week 5 -->
+                <div id="week-5" class="fixtures-week">
+                    <div class="fixture">
+                        <div class="fixture-teams">
+                            James Harris / Lewis Deane <span class="fixture-vs">vs</span> Pete Boyle / Brian Dawson
+                        </div>
+                    </div>
+                    <div class="fixture">
+                        <div class="fixture-teams">
+                            Angus Boyle / Callum Mackie <span class="fixture-vs">vs</span> Jack Lavery / James McKiver
+                        </div>
+                    </div>
+                    <div class="fixture">
+                        <div class="fixture-teams">
+                            Adam Simms / Thomas Armstrong <span class="fixture-vs">vs</span> Chris Moffett / Kevin O'Hare
+                        </div>
+                    </div>
+                    <div class="fixture-note">
+                        Matches to be played on or before Sunday 8<sup>th</sup> March
+                    </div>
+                </div>
+
+                <!-- Week 6 -->
+                <div id="week-6" class="fixtures-week">
+                    <div class="fixture">
+                        <div class="fixture-teams">
+                            Finals Week
+                        </div>
+                    </div>
+                    <div class="fixture-note">
+                        Further details will be announced in due course
+                    </div>
+                </div>
+            </section>
         </div>
     </div>
 
     <script>
-        // Data
-        const teams = [
-            { id: 1, name: "James Harris / Lewis Deane", players: ["James Harris", "Lewis Deane"] },
-            { id: 2, name: "Adam Simms / Thomas Armstrong", players: ["Adam Simms", "Thomas Armstrong"] },
-            { id: 3, name: "Angus Boyle / Callum Mackie", players: ["Angus Boyle", "Callum Mackie"] },
-            { id: 4, name: "Jack Lavery / James McKiver", players: ["Jack Lavery", "James McKiver"] },
-            { id: 5, name: "Chris Moffett / Kevin O'Hare", players: ["Chris Moffett", "Kevin O'Hare"] },
-            { id: 6, name: "Pete Boyle / Brian Dawson", players: ["Pete Boyle", "Brian Dawson"] }
-        ];
-
-        const weeks = [
-            { week: 1, dates: "2nd - 8th Feb", deadline: "Friday 13th Feb",
-                fixtures: [
-                    { id: 'w1m1', team1: 1, team2: 2 },
-                    { id: 'w1m2', team1: 3, team2: 6 },
-                    { id: 'w1m3', team1: 4, team2: 5 }
-                ]
-            },
-            { week: 2, dates: "9th - 15th Feb", deadline: "Friday 20th Feb",
-                fixtures: [
-                    { id: 'w2m1', team1: 1, team2: 3 },
-                    { id: 'w2m2', team1: 2, team2: 6 },
-                    { id: 'w2m3', team1: 5, team2: 4 }
-                ]
-            },
-            { week: 3, dates: "16th - 22nd Feb", deadline: "Friday 27th Feb",
-                fixtures: [
-                    { id: 'w3m1', team1: 1, team2: 4 },
-                    { id: 'w3m2', team1: 2, team2: 5 },
-                    { id: 'w3m3', team1: 6, team2: 3 }
-                ]
-            },
-            { week: 4, dates: "23rd Feb - 1st March", deadline: "Friday 6th March",
-                fixtures: [
-                    { id: 'w4m1', team1: 1, team2: 5 },
-                    { id: 'w4m2', team1: 4, team2: 2 },
-                    { id: 'w4m3', team1: 6, team2: 3 }
-                ]
-            },
-            { week: 5, dates: "2nd - 8th March", deadline: "Sunday 8th March",
-                fixtures: [
-                    { id: 'w5m1', team1: 1, team2: 6 },
-                    { id: 'w5m2', team1: 3, team2: 2 },
-                    { id: 'w5m3', team1: 5, team2: 4 }
-                ]
-            },
-            { week: 6, dates: "9th - 15th March", deadline: "Sunday 15th March",
-                info: "Finals Week - 1st vs 2nd, 3rd vs 4th, 5th vs 6th. Further details will be announced in due course.",
-                fixtures: []
-            }
-        ];
-
-        let results = {};
-
-        // Functions
-        function showTab(tabName) {
+        function showTab(tabId) {
             // Hide all tabs
-            document.querySelectorAll('[id$="-tab"]').forEach(tab => tab.classList.add('hidden'));
+            document.querySelectorAll('.tab-content').forEach(tab => {
+                tab.classList.remove('active');
+            });
+            // Remove active from all nav buttons
+            document.querySelectorAll('.nav-btn').forEach(btn => {
+                btn.classList.remove('active');
+            });
             // Show selected tab
-            document.getElementById(tabName + '-tab').classList.remove('hidden');
-            
-            // Update nav buttons
-            document.querySelectorAll('.nav-btn').forEach(btn => btn.classList.remove('active'));
+            document.getElementById(tabId).classList.add('active');
+            // Add active to clicked button
             event.target.classList.add('active');
-            
-            // Render content
-            if (tabName === 'fixtures') renderFixtures();
-            if (tabName === 'results') renderResults();
-            if (tabName === 'standings') renderStandings();
-            if (tabName === 'teams') renderTeams();
         }
 
-        function showModal() {
-            document.getElementById('modal').classList.add('active');
-        }
-
-        function hideModal() {
-            document.getElementById('modal').classList.remove('active');
-        }
-
-        function calculateMatchPoints(team1Sets, team2Sets) {
-            if (team1Sets === null || team2Sets === null) return { team1Points: 0, team2Points: 0 };
-            
-            if (team1Sets === 3) return { team1Points: 3, team2Points: 1 };
-            if (team2Sets === 3) return { team1Points: 1, team2Points: 3 };
-            if (team1Sets === 2) return { team1Points: 2, team2Points: 1 };
-            if (team2Sets === 2) return { team1Points: 1, team2Points: 2 };
-            
-            return { team1Points: 0, team2Points: 0 };
-        }
-
-        function updateResult(matchId, team, value) {
-            if (!results[matchId]) results[matchId] = { team1Sets: null, team2Sets: null };
-            
-            const val = value === '' ? null : parseInt(value);
-            if (val !== null && (val < 0 || val > 3)) return;
-            
-            if (team === 1) results[matchId].team1Sets = val;
-            else results[matchId].team2Sets = val;
-            
-            renderResults();
-            renderStandings();
-            renderTeams();
-        }
-
-        function renderFixtures() {
-            const container = document.getElementById('fixtures-content');
-            let html = '';
-            
-            weeks.forEach(week => {
-                html += `
-                    <div class="week-card">
-                        <div class="week-header">
-                            <h3>Week ${week.week}</h3>
-                            <p>${week.dates}</p>
-                            <p style="font-size: 0.875rem; margin-top: 0.25rem;">Deadline: ${week.deadline}</p>
-                        </div>
-                        <div class="week-content">
-                `;
-                
-                if (week.info) {
-                    html += `<p style="font-style: italic; color: #d1d5db;">${week.info}</p>`;
-                } else {
-                    week.fixtures.forEach(fixture => {
-                        const team1 = teams.find(t => t.id === fixture.team1);
-                        const team2 = teams.find(t => t.id === fixture.team2);
-                        const result = results[fixture.id];
-                        
-                        html += `
-                            <div class="fixture">
-                                <div class="fixture-match">
-                                    <div class="team-left">${team1.name}</div>
-                                    <div class="score-box">
-                        `;
-                        
-                        if (result && result.team1Sets !== null && result.team2Sets !== null) {
-                            html += `
-                                <span class="score">${result.team1Sets}</span>
-                                <span class="score-sep">-</span>
-                                <span class="score">${result.team2Sets}</span>
-                            `;
-                        } else {
-                            html += `<span class="vs-text">VS</span>`;
-                        }
-                        
-                        html += `
-                                    </div>
-                                    <div class="team-right">${team2.name}</div>
-                                </div>
-                            </div>
-                        `;
-                    });
-                }
-                
-                html += `
-                        </div>
-                    </div>
-                `;
+        function showWeek(weekNum) {
+            // Hide all weeks
+            document.querySelectorAll('.fixtures-week').forEach(week => {
+                week.classList.remove('active');
             });
-            
-            container.innerHTML = html;
+            // Remove active from all week buttons
+            document.querySelectorAll('.week-btn').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            // Show selected week
+            document.getElementById('week-' + weekNum).classList.add('active');
+            // Add active to clicked button
+            event.target.classList.add('active');
         }
-
-        function renderResults() {
-            const container = document.getElementById('results-content');
-            let html = '';
-            
-            weeks.forEach(week => {
-                if (week.fixtures.length === 0) return;
-                
-                html += `
-                    <div class="week-card">
-                        <div class="week-header">
-                            <h3>Week ${week.week}</h3>
-                            <p style="font-size: 0.875rem;">Deadline: ${week.deadline}</p>
-                        </div>
-                        <div class="week-content">
-                `;
-                
-                week.fixtures.forEach(fixture => {
-                    const team1 = teams.find(t => t.id === fixture.team1);
-                    const team2 = teams.find(t => t.id === fixture.team2);
-                    const result = results[fixture.id] || { team1Sets: null, team2Sets: null };
-                    const points = calculateMatchPoints(result.team1Sets, result.team2Sets);
-                    
-                    html += `
-                        <div class="fixture">
-                            <div class="fixture-match">
-                                <div class="team-left">${team1.name}</div>
-                                <div class="score-box">
-                                    <input type="number" class="result-input" min="0" max="3" 
-                                           value="${result.team1Sets ?? ''}" 
-                                           onchange="updateResult('${fixture.id}', 1, this.value)"
-                                           placeholder="0">
-                                    <span class="score-sep">-</span>
-                                    <input type="number" class="result-input" min="0" max="3" 
-                                           value="${result.team2Sets ?? ''}" 
-                                           onchange="updateResult('${fixture.id}', 2, this.value)"
-                                           placeholder="0">
-                                </div>
-                                <div class="team-right">${team2.name}</div>
-                            </div>
-                    `;
-                    
-                    if (result.team1Sets !== null && result.team2Sets !== null) {
-                        html += `
-                            <div class="points-display">
-                                Points: ${team1.name.split('/')[0].trim()} (${points.team1Points}pts) - ${team2.name.split('/')[0].trim()} (${points.team2Points}pts)
-                            </div>
-                        `;
-                    }
-                    
-                    html += `</div>`;
-                });
-                
-                html += `
-                        </div>
-                    </div>
-                `;
-            });
-            
-            container.innerHTML = html;
-        }
-
-        function calculateStandings() {
-            const standings = teams.map(team => ({
-                ...team,
-                played: 0,
-                won: 0,
-                lost: 0,
-                setsFor: 0,
-                setsAgainst: 0,
-                setDiff: 0,
-                points: 0
-            }));
-
-            Object.entries(results).forEach(([matchId, result]) => {
-                if (result.team1Sets !== null && result.team2Sets !== null) {
-                    const match = weeks.flatMap(w => w.fixtures).find(f => f.id === matchId);
-                    if (!match) return;
-
-                    const team1 = standings.find(t => t.id === match.team1);
-                    const team2 = standings.find(t => t.id === match.team2);
-
-                    const { team1Points, team2Points } = calculateMatchPoints(result.team1Sets, result.team2Sets);
-
-                    team1.played++;
-                    team2.played++;
-                    team1.setsFor += result.team1Sets;
-                    team1.setsAgainst += result.team2Sets;
-                    team2.setsFor += result.team2Sets;
-                    team2.setsAgainst += result.team1Sets;
-                    team1.points += team1Points;
-                    team2.points += team2Points;
-
-                    if (result.team1Sets > result.team2Sets) {
-                        team1.won++;
-                        team2.lost++;
-                    } else {
-                        team2.won++;
-                        team1.lost++;
-                    }
-                }
-            });
-
-            standings.forEach(team => {
-                team.setDiff = team.setsFor - team.setsAgainst;
-            });
-
-            return standings.sort((a, b) => {
-                if (b.points !== a.points) return b.points - a.points;
-                if (b.setDiff !== a.setDiff) return b.setDiff - a.setDiff;
-                return b.setsFor - a.setsFor;
-            });
-        }
-
-        function renderStandings() {
-            const standings = calculateStandings();
-            const tbody = document.getElementById('standings-body');
-            let html = '';
-            
-            standings.forEach((team, index) => {
-                const rowClass = index === 0 ? 'first' : index === 1 ? 'second' : '';
-                const diffColor = team.setDiff > 0 ? 'color: #22c55e' : team.setDiff < 0 ? 'color: #ef4444' : 'color: #d1d5db';
-                
-                html += `
-                    <tr class="${rowClass}">
-                        <td>
-                            <div class="pos-cell">
-                                ${index === 0 ? '<span class="award-icon">🏆</span>' : ''}
-                                <span style="font-weight: 700;">${index + 1}</span>
-                            </div>
-                        </td>
-                        <td style="font-weight: 600;">${team.name}</td>
-                        <td class="text-center" style="color: #d1d5db;">${team.played}</td>
-                        <td class="text-center" style="color: #22c55e; font-weight: 600;">${team.won}</td>
-                        <td class="text-center" style="color: #ef4444; font-weight: 600;">${team.lost}</td>
-                        <td class="text-center" style="color: #d1d5db;">${team.setsFor}</td>
-                        <td class="text-center" style="color: #d1d5db;">${team.setsAgainst}</td>
-                        <td class="text-center" style="${diffColor}; font-weight: 600;">${team.setDiff > 0 ? '+' : ''}${team.setDiff}</td>
-                        <td class="text-center">
-                            <span class="points-badge">${team.points}</span>
-                        </td>
-                    </tr>
-                `;
-            });
-            
-            tbody.innerHTML = html;
-        }
-
-        function renderTeams() {
-            const standings = calculateStandings();
-            const container = document.getElementById('teams-content');
-            let html = '';
-            
-            teams.forEach(team => {
-                const teamStats = standings.find(t => t.id === team.id);
-                
-                html += `
-                    <div class="team-card">
-                        <div class="team-header">
-                            <h3>Team ${team.id}</h3>
-                        </div>
-                        <div class="team-content">
-                            <div style="margin-bottom: 1rem;">
-                `;
-                
-                team.players.forEach(player => {
-                    const initials = player.split(' ').map(n => n[0]).join('');
-                    html += `
-                        <div class="player">
-                            <div class="player-avatar">${initials}</div>
-                            <span style="font-weight: 600;">${player}</span>
-                        </div>
-                    `;
-                });
-                
-                if (teamStats && teamStats.played > 0) {
-                    html += `
-                            </div>
-                            <div class="team-stats">
-                                <div>
-                                    <p class="stat-label">Played</p>
-                                    <p class="stat-value">${teamStats.played}</p>
-                                </div>
-                                <div>
-                                    <p class="stat-label">Won</p>
-                                    <p class="stat-value" style="color: #22c55e;">${teamStats.won}</p>
-                                </div>
-                                <div>
-                                    <p class="stat-label">Points</p>
-                                    <p class="stat-value" style="color: #84cc16;">${teamStats.points}</p>
-                                </div>
-                            </div>
-                    `;
-                } else {
-                    html += `</div>`;
-                }
-                
-                html += `
-                        </div>
-                    </div>
-                `;
-            });
-            
-            container.innerHTML = html;
-        }
-
-        // Initialize
-        renderFixtures();
     </script>
 </body>
 </html>

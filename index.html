@@ -248,12 +248,150 @@
             color: #1a1a1a;
         }
 
-        .fixtures-week {
+        .fixtures-week, .results-week {
             display: none;
         }
 
-        .fixtures-week.active {
+        .fixtures-week.active, .results-week.active {
             display: block;
+        }
+
+        /* Results styling */
+        .result-card {
+            background: rgba(255, 255, 255, 0.03);
+            border-radius: 10px;
+            padding: 1rem;
+            margin-bottom: 1rem;
+        }
+
+        .result-match {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .result-team {
+            flex: 1;
+            min-width: 120px;
+            text-align: center;
+        }
+
+        .result-team-name {
+            font-weight: 600;
+            text-transform: uppercase;
+            font-size: 0.85rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .result-team.winner .result-team-name {
+            color: #a3e635;
+        }
+
+        .result-score {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+        }
+
+        .score-box {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 0.5rem 1rem;
+            border-radius: 6px;
+            font-size: 1.5rem;
+            font-weight: 700;
+            min-width: 50px;
+            text-align: center;
+        }
+
+        .score-box.winner {
+            background: #a3e635;
+            color: #1a1a1a;
+        }
+
+        .score-divider {
+            font-size: 1.2rem;
+            color: #666;
+        }
+
+        /* Leaderboard styling */
+        .leaderboard-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.9rem;
+        }
+
+        .leaderboard-table th,
+        .leaderboard-table td {
+            padding: 0.75rem 0.5rem;
+            text-align: center;
+        }
+
+        .leaderboard-table th {
+            background: rgba(163, 230, 53, 0.2);
+            font-weight: 700;
+            text-transform: uppercase;
+            font-size: 0.75rem;
+            letter-spacing: 1px;
+        }
+
+        .leaderboard-table tbody tr {
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .leaderboard-table tbody tr:hover {
+            background: rgba(255, 255, 255, 0.05);
+        }
+
+        .leaderboard-table .position {
+            font-weight: 700;
+            color: #a3e635;
+        }
+
+        .leaderboard-table .team-name {
+            text-align: left;
+            font-weight: 600;
+            text-transform: uppercase;
+            font-size: 0.8rem;
+        }
+
+        .leaderboard-table .points {
+            font-weight: 700;
+            color: #a3e635;
+            font-size: 1.1rem;
+        }
+
+        .leaderboard-top-3 {
+            background: rgba(163, 230, 53, 0.05);
+        }
+
+        .position-badge {
+            display: inline-block;
+            width: 24px;
+            height: 24px;
+            line-height: 24px;
+            border-radius: 50%;
+            font-size: 0.8rem;
+            font-weight: 700;
+        }
+
+        .position-1 { background: #ffd700; color: #1a1a1a; }
+        .position-2 { background: #c0c0c0; color: #1a1a1a; }
+        .position-3 { background: #cd7f32; color: #1a1a1a; }
+
+        .scoring-info {
+            margin-top: 1.5rem;
+            padding: 1rem;
+            background: rgba(255, 255, 255, 0.03);
+            border-radius: 8px;
+            font-size: 0.85rem;
+            color: #999;
+        }
+
+        .scoring-info strong {
+            color: #a3e635;
         }
 
         /* Responsive */
@@ -278,6 +416,29 @@
                 padding: 0.6rem 1rem;
                 font-size: 0.8rem;
             }
+
+            .result-team-name {
+                font-size: 0.75rem;
+            }
+
+            .score-box {
+                font-size: 1.2rem;
+                padding: 0.4rem 0.8rem;
+                min-width: 40px;
+            }
+
+            .leaderboard-table {
+                font-size: 0.75rem;
+            }
+
+            .leaderboard-table th,
+            .leaderboard-table td {
+                padding: 0.5rem 0.25rem;
+            }
+
+            .leaderboard-table .team-name {
+                font-size: 0.7rem;
+            }
         }
     </style>
 </head>
@@ -294,13 +455,15 @@
 
         <!-- Navigation -->
         <nav class="nav">
-            <button class="nav-btn active" onclick="showTab('teams')">Teams</button>
+            <button class="nav-btn" onclick="showTab('teams')">Teams</button>
             <button class="nav-btn" onclick="showTab('schedule')">Schedule</button>
             <button class="nav-btn" onclick="showTab('fixtures')">Fixtures</button>
+            <button class="nav-btn" onclick="showTab('results')">Results</button>
+            <button class="nav-btn active" onclick="showTab('leaderboard')">Leaderboard</button>
         </nav>
 
         <!-- Teams Tab -->
-        <div id="teams" class="tab-content active">
+        <div id="teams" class="tab-content">
             <section class="section">
                 <h2 class="section-title">Group A</h2>
                 <ul class="teams-list">
@@ -489,36 +652,304 @@
                 </div>
             </section>
         </div>
+
+        <!-- Results Tab -->
+        <div id="results" class="tab-content">
+            <section class="section">
+                <h2 class="section-title">Results</h2>
+
+                <div class="week-selector">
+                    <button class="week-btn active" onclick="showResultsWeek(1)">Week 1</button>
+                    <button class="week-btn" onclick="showResultsWeek(2)">Week 2</button>
+                    <button class="week-btn" onclick="showResultsWeek(3)">Week 3</button>
+                    <button class="week-btn disabled" disabled>Week 4</button>
+                    <button class="week-btn disabled" disabled>Week 5</button>
+                    <button class="week-btn disabled" disabled>Week 6</button>
+                </div>
+
+                <!-- Week 1 Results -->
+                <div id="results-week-1" class="results-week active">
+                    <div class="result-card">
+                        <div class="result-match">
+                            <div class="result-team winner">
+                                <div class="result-team-name">James Harris / Lewis Deane</div>
+                            </div>
+                            <div class="result-score">
+                                <div class="score-box winner">2</div>
+                                <div class="score-divider">-</div>
+                                <div class="score-box">1</div>
+                            </div>
+                            <div class="result-team">
+                                <div class="result-team-name">Adam Simms / Thomas Armstrong</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="result-card">
+                        <div class="result-match">
+                            <div class="result-team winner">
+                                <div class="result-team-name">Angus Boyle / Callum Mackie</div>
+                            </div>
+                            <div class="result-score">
+                                <div class="score-box winner">2</div>
+                                <div class="score-divider">-</div>
+                                <div class="score-box">0</div>
+                            </div>
+                            <div class="result-team">
+                                <div class="result-team-name">Pete Boyle / Brian Dawson</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="result-card">
+                        <div class="result-match">
+                            <div class="result-team">
+                                <div class="result-team-name">Jack Lavery / James McKiver</div>
+                            </div>
+                            <div class="result-score">
+                                <div class="score-box">1</div>
+                                <div class="score-divider">-</div>
+                                <div class="score-box winner">2</div>
+                            </div>
+                            <div class="result-team winner">
+                                <div class="result-team-name">Chris Moffett / Kevin O'Hare</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Week 2 Results -->
+                <div id="results-week-2" class="results-week">
+                    <div class="result-card">
+                        <div class="result-match">
+                            <div class="result-team winner">
+                                <div class="result-team-name">James Harris / Lewis Deane</div>
+                            </div>
+                            <div class="result-score">
+                                <div class="score-box winner">2</div>
+                                <div class="score-divider">-</div>
+                                <div class="score-box">0</div>
+                            </div>
+                            <div class="result-team">
+                                <div class="result-team-name">Angus Boyle / Callum Mackie</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="result-card">
+                        <div class="result-match">
+                            <div class="result-team winner">
+                                <div class="result-team-name">Adam Simms / Thomas Armstrong</div>
+                            </div>
+                            <div class="result-score">
+                                <div class="score-box winner">2</div>
+                                <div class="score-divider">-</div>
+                                <div class="score-box">1</div>
+                            </div>
+                            <div class="result-team">
+                                <div class="result-team-name">Jack Lavery / James McKiver</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="result-card">
+                        <div class="result-match">
+                            <div class="result-team">
+                                <div class="result-team-name">Chris Moffett / Kevin O'Hare</div>
+                            </div>
+                            <div class="result-score">
+                                <div class="score-box">1</div>
+                                <div class="score-divider">-</div>
+                                <div class="score-box winner">2</div>
+                            </div>
+                            <div class="result-team winner">
+                                <div class="result-team-name">Pete Boyle / Brian Dawson</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Week 3 Results -->
+                <div id="results-week-3" class="results-week">
+                    <div class="result-card">
+                        <div class="result-match">
+                            <div class="result-team winner">
+                                <div class="result-team-name">James Harris / Lewis Deane</div>
+                            </div>
+                            <div class="result-score">
+                                <div class="score-box winner">2</div>
+                                <div class="score-divider">-</div>
+                                <div class="score-box">1</div>
+                            </div>
+                            <div class="result-team">
+                                <div class="result-team-name">Jack Lavery / James McKiver</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="result-card">
+                        <div class="result-match">
+                            <div class="result-team winner">
+                                <div class="result-team-name">Angus Boyle / Callum Mackie</div>
+                            </div>
+                            <div class="result-score">
+                                <div class="score-box winner">2</div>
+                                <div class="score-divider">-</div>
+                                <div class="score-box">1</div>
+                            </div>
+                            <div class="result-team">
+                                <div class="result-team-name">Chris Moffett / Kevin O'Hare</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="result-card">
+                        <div class="result-match">
+                            <div class="result-team">
+                                <div class="result-team-name">Adam Simms / Thomas Armstrong</div>
+                            </div>
+                            <div class="result-score">
+                                <div class="score-box">0</div>
+                                <div class="score-divider">-</div>
+                                <div class="score-box winner">2</div>
+                            </div>
+                            <div class="result-team winner">
+                                <div class="result-team-name">Pete Boyle / Brian Dawson</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+
+        <!-- Leaderboard Tab -->
+        <div id="leaderboard" class="tab-content active">
+            <section class="section">
+                <h2 class="section-title">Leaderboard</h2>
+
+                <table class="leaderboard-table">
+                    <thead>
+                        <tr>
+                            <th>Pos</th>
+                            <th class="team-name">Team</th>
+                            <th>P</th>
+                            <th>W</th>
+                            <th>L</th>
+                            <th>SF</th>
+                            <th>SA</th>
+                            <th>SD</th>
+                            <th>Pts</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr class="leaderboard-top-3">
+                            <td><span class="position-badge position-1">1</span></td>
+                            <td class="team-name">James Harris / Lewis Deane</td>
+                            <td>3</td>
+                            <td>3</td>
+                            <td>0</td>
+                            <td>6</td>
+                            <td>2</td>
+                            <td>+4</td>
+                            <td class="points">7</td>
+                        </tr>
+                        <tr class="leaderboard-top-3">
+                            <td><span class="position-badge position-2">2</span></td>
+                            <td class="team-name">Angus Boyle / Callum Mackie</td>
+                            <td>3</td>
+                            <td>2</td>
+                            <td>1</td>
+                            <td>4</td>
+                            <td>3</td>
+                            <td>+1</td>
+                            <td class="points">6</td>
+                        </tr>
+                        <tr class="leaderboard-top-3">
+                            <td><span class="position-badge position-3">3</span></td>
+                            <td class="team-name">Pete Boyle / Brian Dawson</td>
+                            <td>3</td>
+                            <td>2</td>
+                            <td>1</td>
+                            <td>4</td>
+                            <td>3</td>
+                            <td>+1</td>
+                            <td class="points">6</td>
+                        </tr>
+                        <tr>
+                            <td class="position">4</td>
+                            <td class="team-name">Chris Moffett / Kevin O'Hare</td>
+                            <td>3</td>
+                            <td>1</td>
+                            <td>2</td>
+                            <td>4</td>
+                            <td>5</td>
+                            <td>-1</td>
+                            <td class="points">4</td>
+                        </tr>
+                        <tr>
+                            <td class="position">5</td>
+                            <td class="team-name">Adam Simms / Thomas Armstrong</td>
+                            <td>3</td>
+                            <td>1</td>
+                            <td>2</td>
+                            <td>3</td>
+                            <td>5</td>
+                            <td>-2</td>
+                            <td class="points">4</td>
+                        </tr>
+                        <tr>
+                            <td class="position">6</td>
+                            <td class="team-name">Jack Lavery / James McKiver</td>
+                            <td>3</td>
+                            <td>0</td>
+                            <td>3</td>
+                            <td>3</td>
+                            <td>6</td>
+                            <td>-3</td>
+                            <td class="points">3</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <div class="scoring-info">
+                    <strong>Scoring System:</strong> Win 2-0 = 3 pts | Win 2-1 = 2 pts | Loss = 1 pt<br>
+                    <strong>Tiebreakers:</strong> Set Difference (SD) then Sets For (SF)
+                </div>
+            </section>
+        </div>
     </div>
 
     <script>
         function showTab(tabId) {
-            // Hide all tabs
             document.querySelectorAll('.tab-content').forEach(tab => {
                 tab.classList.remove('active');
             });
-            // Remove active from all nav buttons
             document.querySelectorAll('.nav-btn').forEach(btn => {
                 btn.classList.remove('active');
             });
-            // Show selected tab
             document.getElementById(tabId).classList.add('active');
-            // Add active to clicked button
             event.target.classList.add('active');
         }
 
         function showWeek(weekNum) {
-            // Hide all weeks
             document.querySelectorAll('.fixtures-week').forEach(week => {
                 week.classList.remove('active');
             });
-            // Remove active from all week buttons
-            document.querySelectorAll('.week-btn').forEach(btn => {
+            document.querySelectorAll('#fixtures .week-btn').forEach(btn => {
                 btn.classList.remove('active');
             });
-            // Show selected week
             document.getElementById('week-' + weekNum).classList.add('active');
-            // Add active to clicked button
+            event.target.classList.add('active');
+        }
+
+        function showResultsWeek(weekNum) {
+            document.querySelectorAll('.results-week').forEach(week => {
+                week.classList.remove('active');
+            });
+            document.querySelectorAll('#results .week-btn').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            document.getElementById('results-week-' + weekNum).classList.add('active');
             event.target.classList.add('active');
         }
     </script>

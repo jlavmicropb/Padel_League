@@ -593,6 +593,10 @@
         let html = '';
         html += renderSchedulePanel(leagueData.schedule || []);
 
+        // Auto-initialize null groups (e.g. placeholder "B": null in JSON)
+        if (currentGroup && leagueData.groups?.[currentGroup] === null) {
+            leagueData.groups[currentGroup] = { teams: [], fixtures: {}, results: {} };
+        }
         const groupData = leagueData.groups?.[currentGroup];
         if (!groupData) {
             html += '<div class="empty-state">Select or create a group to manage teams, fixtures, and results.</div>';

@@ -58,8 +58,8 @@
                         ]
                     }
                 },
-                "B": null,
-                "C": null
+                "B": { "teams": [], "fixtures": {}, "results": {} },
+                "C": { "teams": [], "fixtures": {}, "results": {} }
             }
         }
     }

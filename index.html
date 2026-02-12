@@ -989,7 +989,7 @@
         for (const g of groups) {
             const groupData = carryduffWinter.groups[g];
 
-            if (!groupData) {
+            if (!groupData || !groupData.teams || groupData.teams.length === 0) {
                 // No data for this group - show coming soon
                 document.getElementById('carryduff-teams-' + g).innerHTML = comingSoonHTML('Group ' + g);
                 document.getElementById('carryduff-fixtures-' + g).innerHTML = comingSoonHTML('Group ' + g + ' Fixtures');

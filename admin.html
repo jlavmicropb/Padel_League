@@ -21,10 +21,11 @@
             padding: 1rem 2rem;
             display: flex;
             align-items: center;
-            justify-content: space-between;
+            gap: 1rem;
             position: sticky;
             top: 0;
             z-index: 100;
+            flex-wrap: wrap;
         }
 
         .topbar-title {
@@ -35,16 +36,26 @@
             letter-spacing: 2px;
         }
 
+        .topbar-spacer { flex: 1; }
+
         .topbar-badge {
-            background: rgba(255,165,0,0.15);
-            color: #ffa500;
-            border: 1px solid rgba(255,165,0,0.4);
             padding: 0.3rem 0.8rem;
             border-radius: 4px;
             font-size: 0.75rem;
             font-weight: 700;
             text-transform: uppercase;
             letter-spacing: 1px;
+        }
+        .topbar-badge.local {
+            background: rgba(163,230,53,0.15);
+            color: #a3e635;
+            border: 1px solid rgba(163,230,53,0.4);
+        }
+        .topbar-badge.unsaved {
+            background: rgba(255,165,0,0.15);
+            color: #ffa500;
+            border: 1px solid rgba(255,165,0,0.4);
+            display: none;
         }
 
         .topbar-link {
@@ -70,6 +81,7 @@
             display: flex;
             align-items: center;
             gap: 1rem;
+            flex-wrap: wrap;
         }
 
         .provider-dot {
@@ -84,6 +96,7 @@
         .provider-label {
             font-size: 0.85rem;
             color: #999;
+            flex: 1;
         }
         .provider-label strong { color: #e0e0e0; }
 
@@ -93,6 +106,7 @@
             gap: 0.75rem;
             margin-bottom: 1.5rem;
             flex-wrap: wrap;
+            align-items: center;
         }
 
         .sel-btn {
@@ -113,6 +127,12 @@
             color: #a3e635;
         }
 
+        .sel-btn.add-btn {
+            border-style: dashed;
+            color: #666;
+        }
+        .sel-btn.add-btn:hover { color: #a3e635; border-color: #a3e635; }
+
         /* Panels */
         .panel {
             background: rgba(255,255,255,0.04);
@@ -129,6 +149,8 @@
             align-items: center;
             justify-content: space-between;
             border-bottom: 1px solid rgba(255,255,255,0.08);
+            gap: 0.5rem;
+            flex-wrap: wrap;
         }
 
         .panel-title {
@@ -177,28 +199,19 @@
         .data-table .score-cell { font-weight: 700; color: #a3e635; text-align: center; }
         .data-table .muted { color: #666; font-size: 0.8rem; }
 
-        /* Result submit form (disabled) */
-        .submit-form {
-            border: 1px dashed rgba(255,165,0,0.3);
+        /* Forms */
+        .form-section {
+            border: 1px solid rgba(255,255,255,0.1);
             border-radius: 8px;
             padding: 1.25rem;
             margin-top: 1rem;
-            opacity: 0.5;
-            position: relative;
-        }
-
-        .submit-form::after {
-            content: '';
-            position: absolute;
-            inset: 0;
-            cursor: not-allowed;
         }
 
         .form-title {
             font-size: 0.85rem;
             font-weight: 700;
             text-transform: uppercase;
-            color: #ffa500;
+            color: #a3e635;
             margin-bottom: 1rem;
             letter-spacing: 1px;
         }
@@ -215,12 +228,12 @@
             font-size: 0.75rem;
             color: #999;
             text-transform: uppercase;
-            min-width: 50px;
+            min-width: 60px;
         }
 
         .form-select, .form-input {
-            background: rgba(255,255,255,0.05);
-            border: 1px solid rgba(255,255,255,0.15);
+            background: rgba(255,255,255,0.08);
+            border: 1px solid rgba(255,255,255,0.2);
             border-radius: 4px;
             color: #e0e0e0;
             padding: 0.4rem 0.6rem;
@@ -229,26 +242,49 @@
         }
 
         .form-select { min-width: 200px; }
-        .form-input { width: 60px; text-align: center; }
+        .form-input-narrow { width: 60px; text-align: center; }
+        .form-input-wide { flex: 1; min-width: 200px; }
 
-        .form-btn {
+        .btn {
             padding: 0.5rem 1.5rem;
-            background: rgba(255,165,0,0.15);
-            border: 1px solid rgba(255,165,0,0.4);
+            border: 1px solid;
             border-radius: 6px;
-            color: #ffa500;
             font-weight: 700;
             font-size: 0.8rem;
             text-transform: uppercase;
-            cursor: not-allowed;
-            margin-top: 0.5rem;
+            cursor: pointer;
+            transition: all 0.2s;
+            font-family: inherit;
         }
 
-        .disabled-note {
-            font-size: 0.75rem;
-            color: #ffa500;
-            margin-top: 0.75rem;
-            font-style: italic;
+        .btn-primary {
+            background: rgba(163,230,53,0.15);
+            border-color: rgba(163,230,53,0.4);
+            color: #a3e635;
+        }
+        .btn-primary:hover { background: rgba(163,230,53,0.25); }
+
+        .btn-danger {
+            background: rgba(239,68,68,0.1);
+            border-color: rgba(239,68,68,0.3);
+            color: #ef4444;
+            font-size: 0.7rem;
+            padding: 0.25rem 0.6rem;
+        }
+        .btn-danger:hover { background: rgba(239,68,68,0.2); }
+
+        .btn-export {
+            background: rgba(59,130,246,0.15);
+            border-color: rgba(59,130,246,0.4);
+            color: #3b82f6;
+        }
+        .btn-export:hover { background: rgba(59,130,246,0.25); }
+
+        .btn-row {
+            display: flex;
+            gap: 0.75rem;
+            margin-top: 1rem;
+            flex-wrap: wrap;
         }
 
         /* Schedule item */
@@ -258,6 +294,7 @@
             align-items: center;
             padding: 0.5rem 0;
             border-bottom: 1px solid rgba(255,255,255,0.05);
+            gap: 0.5rem;
         }
         .schedule-row:last-child { border-bottom: none; }
         .schedule-week { font-weight: 700; font-size: 0.85rem; }
@@ -280,50 +317,82 @@
             padding: 0.5rem 0;
             border-bottom: 1px solid rgba(255,255,255,0.05);
             font-size: 0.85rem;
+            gap: 0.5rem;
         }
         .fixture-row:last-child { border-bottom: none; }
         .fixture-teams-admin { font-weight: 600; text-transform: uppercase; font-size: 0.8rem; }
         .fixture-vs-admin { color: #a3e635; font-weight: 700; margin: 0 0.5rem; }
         .fixture-time-admin { color: #666; font-size: 0.75rem; }
 
-        .results-pending-tag {
+        .tag {
             display: inline-block;
-            background: rgba(255,255,255,0.05);
-            border: 1px solid rgba(255,255,255,0.1);
             border-radius: 4px;
             padding: 0.15rem 0.5rem;
             font-size: 0.7rem;
-            color: #666;
             text-transform: uppercase;
+            font-weight: 600;
         }
+        .tag-pending { background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); color: #666; }
+        .tag-done { background: rgba(163,230,53,0.1); border: 1px solid rgba(163,230,53,0.3); color: #a3e635; }
 
-        .results-done-tag {
-            display: inline-block;
-            background: rgba(163,230,53,0.1);
-            border: 1px solid rgba(163,230,53,0.3);
-            border-radius: 4px;
-            padding: 0.15rem 0.5rem;
-            font-size: 0.7rem;
+        /* Toast notification */
+        .toast {
+            position: fixed;
+            bottom: 2rem;
+            left: 50%;
+            transform: translateX(-50%) translateY(100px);
+            background: #1a1a1a;
+            border: 1px solid #a3e635;
             color: #a3e635;
-            text-transform: uppercase;
+            padding: 0.75rem 1.5rem;
+            border-radius: 8px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            z-index: 200;
+            transition: transform 0.3s ease;
+            pointer-events: none;
         }
+        .toast.visible { transform: translateX(-50%) translateY(0); }
+
+        /* Confirm dialog */
+        .confirm-overlay {
+            position: fixed;
+            inset: 0;
+            background: rgba(0,0,0,0.7);
+            z-index: 150;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .confirm-box {
+            background: #1a1a1a;
+            border: 1px solid rgba(255,255,255,0.15);
+            border-radius: 10px;
+            padding: 1.5rem;
+            max-width: 400px;
+            text-align: center;
+        }
+        .confirm-box p { margin-bottom: 1rem; font-size: 0.9rem; }
+        .confirm-box .btn-row { justify-content: center; }
 
         @media (max-width: 600px) {
-            .topbar { flex-wrap: wrap; gap: 0.5rem; }
+            .topbar { padding: 0.75rem 1rem; }
             .form-row { flex-direction: column; align-items: stretch; }
             .form-select { min-width: 100%; }
+            .fixture-row { flex-direction: column; align-items: flex-start; }
         }
     </style>
 </head>
 <body>
     <div class="topbar">
         <div class="topbar-title">Admin Panel</div>
-        <div class="topbar-badge">Read Only</div>
+        <div class="topbar-spacer"></div>
+        <div class="topbar-badge local" id="mode-badge">Local Mode</div>
+        <div class="topbar-badge unsaved" id="unsaved-badge">Unsaved Changes</div>
         <a href="index.html" class="topbar-link">View Site</a>
     </div>
 
     <div class="container">
-        <!-- Provider status -->
         <div class="provider-status" id="provider-status"></div>
 
         <!-- Location selector -->
@@ -339,125 +408,292 @@
         <div id="content"></div>
     </div>
 
+    <div class="toast" id="toast"></div>
+
     <script src="js/config.js"></script>
     <script src="js/db.js"></script>
     <script>
 
+    // =========================================================================
+    // STATE
+    // =========================================================================
+
     let DATA = null;
+    let hasUnsavedChanges = false;
     let currentLocation = null;
     let currentLeague = null;
     let currentGroup = null;
 
-    // ---- Provider status ----
+    // =========================================================================
+    // HELPERS
+    // =========================================================================
+
+    function toast(msg) {
+        const el = document.getElementById('toast');
+        el.textContent = msg;
+        el.classList.add('visible');
+        setTimeout(() => el.classList.remove('visible'), 2500);
+    }
+
+    function markDirty() {
+        hasUnsavedChanges = true;
+        document.getElementById('unsaved-badge').style.display = 'inline-block';
+    }
+
+    function markClean() {
+        hasUnsavedChanges = false;
+        document.getElementById('unsaved-badge').style.display = 'none';
+    }
+
+    function ensureGroups(loc, league) {
+        if (!DATA[loc]) DATA[loc] = {};
+        if (!DATA[loc][league]) DATA[loc][league] = {};
+        if (!DATA[loc][league].groups) DATA[loc][league].groups = {};
+        if (!DATA[loc][league].schedule) DATA[loc][league].schedule = [];
+    }
+
+    function ensureGroupData(loc, league, group) {
+        ensureGroups(loc, league);
+        if (!DATA[loc][league].groups[group]) {
+            DATA[loc][league].groups[group] = { teams: [], fixtures: {}, results: {} };
+        }
+    }
+
+    // =========================================================================
+    // PROVIDER STATUS
+    // =========================================================================
+
     function renderProviderStatus() {
         const isLocal = CONFIG.provider === 'local';
         const label = CONFIG.provider.charAt(0).toUpperCase() + CONFIG.provider.slice(1);
+        const badge = document.getElementById('mode-badge');
+        badge.textContent = label + ' Mode';
+        badge.className = 'topbar-badge ' + (isLocal ? 'local' : 'local');
+
         document.getElementById('provider-status').innerHTML = `
             <div class="provider-dot ${isLocal ? 'local' : 'remote'}"></div>
             <div class="provider-label">
                 <strong>Data Provider:</strong> ${label}
-                ${isLocal ? '&mdash; serving from data/league-data.json' : '&mdash; connected to ' + label}
-                &nbsp;|&nbsp; Editing requires ${isLocal ? 'Firebase or Supabase' : 'write permissions'}
+                ${isLocal ? '&mdash; edit in-memory, then download JSON to save' : '&mdash; changes save to ' + label + ' automatically'}
+            </div>
+            <div class="btn-row">
+                <button class="btn btn-export" onclick="downloadJSON()">Download JSON</button>
             </div>`;
     }
 
-    // ---- Selectors ----
+    // =========================================================================
+    // SELECTORS
+    // =========================================================================
+
     function renderLocationSelector() {
         const locations = Object.keys(DATA);
-        if (!currentLocation) currentLocation = locations[0];
-        document.getElementById('location-selector').innerHTML = locations.map(loc => {
+        if (!currentLocation || !DATA[currentLocation]) currentLocation = locations[0];
+        let html = locations.map(loc => {
             const label = loc.charAt(0).toUpperCase() + loc.slice(1);
             return `<button class="sel-btn${loc === currentLocation ? ' active' : ''}" onclick="selectLocation('${loc}')">${label}</button>`;
         }).join('');
+        html += `<button class="sel-btn add-btn" onclick="addLocation()">+ Location</button>`;
+        document.getElementById('location-selector').innerHTML = html;
     }
 
     function renderLeagueSelector() {
         const locData = DATA[currentLocation];
-        if (!locData) return;
+        if (!locData) { document.getElementById('league-selector').innerHTML = ''; return; }
         const leagues = Object.keys(locData);
-        if (!currentLeague || !locData[currentLeague]) currentLeague = leagues[0];
-        document.getElementById('league-selector').innerHTML = leagues.map(lg => {
+        if (!currentLeague || !locData[currentLeague]) currentLeague = leagues[0] || null;
+        let html = leagues.map(lg => {
             const label = lg.replace(/-/g, ' ').replace(/\b\w/g, c => c.toUpperCase());
             return `<button class="sel-btn${lg === currentLeague ? ' active' : ''}" onclick="selectLeague('${lg}')">${label}</button>`;
         }).join('');
+        html += `<button class="sel-btn add-btn" onclick="addLeague()">+ League</button>`;
+        document.getElementById('league-selector').innerHTML = html;
     }
 
     function renderGroupSelector() {
         const leagueData = DATA[currentLocation]?.[currentLeague];
         if (!leagueData?.groups) {
-            document.getElementById('group-selector').innerHTML = '';
+            document.getElementById('group-selector').innerHTML = `<button class="sel-btn add-btn" onclick="addGroup()">+ Group</button>`;
             return;
         }
-        const groups = Object.keys(leagueData.groups);
-        if (!currentGroup || !leagueData.groups[currentGroup]) currentGroup = groups[0];
-        document.getElementById('group-selector').innerHTML = groups.map(g =>
+        const groups = Object.keys(leagueData.groups).sort();
+        if (!currentGroup || !leagueData.groups[currentGroup]) currentGroup = groups[0] || null;
+        let html = groups.map(g =>
             `<button class="sel-btn${g === currentGroup ? ' active' : ''}" onclick="selectGroup('${g}')">Group ${g}</button>`
         ).join('');
+        html += `<button class="sel-btn add-btn" onclick="addGroup()">+ Group</button>`;
+        document.getElementById('group-selector').innerHTML = html;
     }
 
     function selectLocation(loc) { currentLocation = loc; currentLeague = null; currentGroup = null; renderLeagueSelector(); renderGroupSelector(); renderContent(); }
     function selectLeague(lg) { currentLeague = lg; currentGroup = null; renderGroupSelector(); renderContent(); }
     function selectGroup(g) { currentGroup = g; renderContent(); }
 
-    // ---- Main content ----
+    // =========================================================================
+    // ADD LOCATION / LEAGUE / GROUP
+    // =========================================================================
+
+    function addLocation() {
+        const name = prompt('Enter location name (e.g. "lisburn"):');
+        if (!name) return;
+        const key = name.toLowerCase().trim().replace(/\s+/g, '-');
+        if (DATA[key]) { toast('Location already exists'); return; }
+        DATA[key] = {};
+        markDirty();
+        currentLocation = key;
+        currentLeague = null;
+        currentGroup = null;
+        renderLocationSelector();
+        renderLeagueSelector();
+        renderGroupSelector();
+        renderContent();
+        toast('Location "' + name + '" added');
+    }
+
+    function addLeague() {
+        const name = prompt('Enter league name (e.g. "summer-2026"):');
+        if (!name) return;
+        const key = name.toLowerCase().trim().replace(/\s+/g, '-');
+        if (!DATA[currentLocation]) DATA[currentLocation] = {};
+        if (DATA[currentLocation][key]) { toast('League already exists'); return; }
+        DATA[currentLocation][key] = { schedule: [], groups: {} };
+        markDirty();
+        currentLeague = key;
+        currentGroup = null;
+        renderLeagueSelector();
+        renderGroupSelector();
+        renderContent();
+        toast('League "' + name + '" added');
+    }
+
+    function addGroup() {
+        const letter = prompt('Enter group letter (e.g. "A", "B", "C"):');
+        if (!letter) return;
+        const key = letter.toUpperCase().trim();
+        ensureGroups(currentLocation, currentLeague);
+        if (DATA[currentLocation][currentLeague].groups[key]) { toast('Group ' + key + ' already exists'); return; }
+        DATA[currentLocation][currentLeague].groups[key] = { teams: [], fixtures: {}, results: {} };
+        markDirty();
+        currentGroup = key;
+        renderGroupSelector();
+        renderContent();
+        toast('Group ' + key + ' added');
+    }
+
+    // =========================================================================
+    // MAIN CONTENT
+    // =========================================================================
+
     function renderContent() {
         const leagueData = DATA[currentLocation]?.[currentLeague];
         if (!leagueData) {
-            document.getElementById('content').innerHTML = '<div class="empty-state">No data for this league yet.</div>';
+            document.getElementById('content').innerHTML = '<div class="empty-state">Select or create a league to get started.</div>';
             return;
         }
 
         let html = '';
+        html += renderSchedulePanel(leagueData.schedule || []);
 
-        // Schedule panel
-        if (leagueData.schedule) {
-            html += renderSchedulePanel(leagueData.schedule);
-        }
-
-        // Group data
         const groupData = leagueData.groups?.[currentGroup];
         if (!groupData) {
-            html += '<div class="empty-state">No data for Group ' + currentGroup + ' yet.</div>';
+            html += '<div class="empty-state">Select or create a group to manage teams, fixtures, and results.</div>';
         } else {
-            html += renderTeamsPanel(groupData.teams, currentGroup);
-            html += renderFixturesPanel(groupData.fixtures, groupData.results, leagueData.schedule);
-            html += renderResultsPanel(groupData.results);
-            html += renderSubmitForm(groupData.teams, groupData.fixtures);
+            html += renderTeamsPanel(groupData.teams || [], currentGroup);
+            html += renderFixturesPanel(groupData.fixtures || {}, groupData.results || {}, leagueData.schedule || []);
+            html += renderResultsPanel(groupData.results || {});
+            html += renderAddFixtureForm(groupData.teams || [], groupData.fixtures || {});
+            html += renderAddResultForm(groupData.teams || [], groupData.fixtures || {}, groupData.results || {});
         }
 
         document.getElementById('content').innerHTML = html;
-
-        // Update selector active states
-        document.querySelectorAll('#location-selector .sel-btn').forEach(b => b.classList.toggle('active', b.textContent.toLowerCase() === currentLocation));
-        document.querySelectorAll('#league-selector .sel-btn').forEach(b => b.classList.toggle('active', b.textContent.toLowerCase().replace(/\s+/g, '-') === currentLeague));
-        document.querySelectorAll('#group-selector .sel-btn').forEach(b => b.classList.toggle('active', b.textContent.replace('Group ', '') === currentGroup));
     }
 
-    // ---- Schedule panel ----
+    // =========================================================================
+    // SCHEDULE PANEL
+    // =========================================================================
+
     function renderSchedulePanel(schedule) {
-        let rows = schedule.map(s => `
-            <div class="schedule-row">
-                <span class="schedule-week">Week ${s.week}</span>
-                <span class="schedule-dates">${s.dates}</span>
-                <span class="schedule-deadline">Deadline: ${s.deadline}</span>
-            </div>`).join('');
+        let rows = '';
+        if (schedule.length > 0) {
+            rows = schedule.map((s, i) => `
+                <div class="schedule-row">
+                    <span class="schedule-week">Week ${s.week}</span>
+                    <span class="schedule-dates">${s.dates}</span>
+                    <span class="schedule-deadline">Deadline: ${s.deadline}</span>
+                    <button class="btn btn-danger" onclick="removeScheduleWeek(${i})">Remove</button>
+                </div>`).join('');
+        } else {
+            rows = '<div class="empty-state">No schedule set</div>';
+        }
 
         return `<div class="panel">
             <div class="panel-header">
                 <span class="panel-title">Schedule</span>
                 <span class="panel-count">${schedule.length} weeks</span>
             </div>
-            <div class="panel-body">${rows}</div>
+            <div class="panel-body">
+                ${rows}
+                <div class="form-section" style="margin-top:1rem">
+                    <div class="form-title">Add Week</div>
+                    <div class="form-row">
+                        <label>Week #</label>
+                        <input class="form-input form-input-narrow" type="number" id="sched-week" min="1" value="${schedule.length + 1}">
+                    </div>
+                    <div class="form-row">
+                        <label>Dates</label>
+                        <input class="form-input form-input-wide" type="text" id="sched-dates" placeholder='e.g. 2nd to 8th Feb (HTML ok)'>
+                    </div>
+                    <div class="form-row">
+                        <label>Deadline</label>
+                        <input class="form-input form-input-wide" type="text" id="sched-deadline" placeholder='e.g. Friday 13th Feb'>
+                    </div>
+                    <div class="form-row">
+                        <label>Finals?</label>
+                        <input type="checkbox" id="sched-finals">
+                    </div>
+                    <button class="btn btn-primary" onclick="addScheduleWeek()">Add Week</button>
+                </div>
+            </div>
         </div>`;
     }
 
-    // ---- Teams panel ----
+    function addScheduleWeek() {
+        const week = parseInt(document.getElementById('sched-week').value);
+        const dates = document.getElementById('sched-dates').value.trim();
+        const deadline = document.getElementById('sched-deadline').value.trim();
+        const finals = document.getElementById('sched-finals').checked;
+        if (!week || !dates || !deadline) { toast('Fill in all fields'); return; }
+
+        ensureGroups(currentLocation, currentLeague);
+        const entry = { week, dates, deadline };
+        if (finals) entry.finals = true;
+        DATA[currentLocation][currentLeague].schedule.push(entry);
+        DATA[currentLocation][currentLeague].schedule.sort((a, b) => a.week - b.week);
+        markDirty();
+        renderContent();
+        toast('Week ' + week + ' added to schedule');
+    }
+
+    function removeScheduleWeek(index) {
+        DATA[currentLocation][currentLeague].schedule.splice(index, 1);
+        markDirty();
+        renderContent();
+        toast('Week removed from schedule');
+    }
+
+    // =========================================================================
+    // TEAMS PANEL
+    // =========================================================================
+
     function renderTeamsPanel(teams, group) {
-        let rows = teams.map((t, i) => `
-            <tr>
-                <td class="muted">${i + 1}</td>
-                <td class="team-cell">${t}</td>
-            </tr>`).join('');
+        let rows = '';
+        if (teams.length > 0) {
+            rows = teams.map((t, i) => `
+                <tr>
+                    <td class="muted">${i + 1}</td>
+                    <td class="team-cell">${t}</td>
+                    <td><button class="btn btn-danger" onclick="removeTeam(${i})">Remove</button></td>
+                </tr>`).join('');
+        }
 
         return `<div class="panel">
             <div class="panel-header">
@@ -465,59 +701,158 @@
                 <span class="panel-count">${teams.length} teams</span>
             </div>
             <div class="panel-body">
-                <table class="data-table">
-                    <thead><tr><th>#</th><th>Team</th></tr></thead>
+                ${teams.length > 0 ? `<table class="data-table">
+                    <thead><tr><th>#</th><th>Team</th><th></th></tr></thead>
                     <tbody>${rows}</tbody>
-                </table>
+                </table>` : '<div class="empty-state">No teams added yet</div>'}
+                <div class="form-section" style="margin-top:1rem">
+                    <div class="form-title">Add Team</div>
+                    <div class="form-row">
+                        <label>Team</label>
+                        <input class="form-input form-input-wide" type="text" id="add-team-name" placeholder='e.g. "Player 1 / Player 2"'>
+                    </div>
+                    <button class="btn btn-primary" onclick="addTeam()">Add Team</button>
+                </div>
             </div>
         </div>`;
     }
 
-    // ---- Fixtures panel ----
-    function renderFixturesPanel(fixtures, results, schedule) {
-        if (!fixtures) return '';
+    function addTeam() {
+        const name = document.getElementById('add-team-name').value.trim();
+        if (!name) { toast('Enter a team name'); return; }
+        ensureGroupData(currentLocation, currentLeague, currentGroup);
+        const teams = DATA[currentLocation][currentLeague].groups[currentGroup].teams;
+        if (teams.includes(name)) { toast('Team already exists'); return; }
+        teams.push(name);
+        markDirty();
+        renderContent();
+        toast('Team added');
+    }
 
+    function removeTeam(index) {
+        const teams = DATA[currentLocation][currentLeague].groups[currentGroup].teams;
+        const name = teams[index];
+        if (!confirm('Remove team "' + name + '"? This will also remove their fixtures and results.')) return;
+        teams.splice(index, 1);
+        // Also clean up fixtures and results referencing this team
+        const gd = DATA[currentLocation][currentLeague].groups[currentGroup];
+        for (const w in gd.fixtures) {
+            gd.fixtures[w] = gd.fixtures[w].filter(f => f.team1 !== name && f.team2 !== name);
+            if (gd.fixtures[w].length === 0) delete gd.fixtures[w];
+        }
+        for (const w in gd.results) {
+            gd.results[w] = gd.results[w].filter(r => r.team1 !== name && r.team2 !== name);
+            if (gd.results[w].length === 0) delete gd.results[w];
+        }
+        markDirty();
+        renderContent();
+        toast('Team removed');
+    }
+
+    // =========================================================================
+    // FIXTURES PANEL
+    // =========================================================================
+
+    function renderFixturesPanel(fixtures, results, schedule) {
         let rows = '';
         const weeks = Object.keys(fixtures).sort((a, b) => a - b);
+        let totalFixtures = 0;
+        let totalResults = 0;
+
         for (const w of weeks) {
-            const sched = schedule?.find(s => s.week == w);
             for (const f of fixtures[w]) {
+                totalFixtures++;
                 const hasResult = results?.[w]?.some(r =>
                     (r.team1 === f.team1 && r.team2 === f.team2) ||
                     (r.team1 === f.team2 && r.team2 === f.team1)
                 );
+                if (hasResult) totalResults++;
                 rows += `<div class="fixture-row">
                     <span class="schedule-week">W${w}</span>
                     <span class="fixture-teams-admin">${f.team1} <span class="fixture-vs-admin">vs</span> ${f.team2}</span>
-                    <span>${f.time ? '<span class="fixture-time-admin">' + f.time + '</span> ' : ''}${hasResult ? '<span class="results-done-tag">Played</span>' : '<span class="results-pending-tag">Pending</span>'}</span>
+                    <span style="display:flex;gap:0.5rem;align-items:center">
+                        ${f.time ? '<span class="fixture-time-admin">' + f.time + '</span>' : ''}
+                        ${hasResult ? '<span class="tag tag-done">Played</span>' : '<span class="tag tag-pending">Pending</span>'}
+                        <button class="btn btn-danger" onclick="removeFixture('${w}', '${f.team1.replace(/'/g,"\\'")}', '${f.team2.replace(/'/g,"\\'")}')">X</button>
+                    </span>
                 </div>`;
             }
         }
-
-        const totalFixtures = weeks.reduce((sum, w) => sum + fixtures[w].length, 0);
-        const totalResults = results ? Object.values(results).reduce((sum, wk) => sum + wk.length, 0) : 0;
 
         return `<div class="panel">
             <div class="panel-header">
                 <span class="panel-title">Fixtures</span>
                 <span class="panel-count">${totalResults}/${totalFixtures} played</span>
             </div>
-            <div class="panel-body">${rows || '<div class="empty-state">No fixtures</div>'}</div>
+            <div class="panel-body">${rows || '<div class="empty-state">No fixtures yet</div>'}</div>
         </div>`;
     }
 
-    // ---- Results panel ----
-    function renderResultsPanel(results) {
-        if (!results || Object.keys(results).length === 0) {
-            return `<div class="panel">
-                <div class="panel-header">
-                    <span class="panel-title">Results</span>
-                    <span class="panel-count">0 results</span>
-                </div>
-                <div class="panel-body"><div class="empty-state">No results recorded yet</div></div>
-            </div>`;
-        }
+    function renderAddFixtureForm(teams, fixtures) {
+        if (teams.length < 2) return '';
+        const teamOptions = teams.map(t => `<option value="${t}">${t}</option>`).join('');
 
+        return `<div class="panel">
+            <div class="panel-header">
+                <span class="panel-title">Add Fixture</span>
+            </div>
+            <div class="panel-body">
+                <div class="form-row">
+                    <label>Week</label>
+                    <input class="form-input form-input-narrow" type="number" id="fix-week" min="1" value="1">
+                </div>
+                <div class="form-row">
+                    <label>Team 1</label>
+                    <select class="form-select" id="fix-team1">${teamOptions}</select>
+                </div>
+                <div class="form-row">
+                    <label>Team 2</label>
+                    <select class="form-select" id="fix-team2">${teamOptions}</select>
+                </div>
+                <div class="form-row">
+                    <label>Time</label>
+                    <input class="form-input form-input-wide" type="text" id="fix-time" placeholder='Optional, e.g. "Thu 5th Feb | 21:30"'>
+                </div>
+                <button class="btn btn-primary" onclick="addFixture()">Add Fixture</button>
+            </div>
+        </div>`;
+    }
+
+    function addFixture() {
+        const week = document.getElementById('fix-week').value;
+        const team1 = document.getElementById('fix-team1').value;
+        const team2 = document.getElementById('fix-team2').value;
+        const time = document.getElementById('fix-time').value.trim();
+        if (!week || !team1 || !team2) { toast('Fill in all fields'); return; }
+        if (team1 === team2) { toast('Teams must be different'); return; }
+
+        ensureGroupData(currentLocation, currentLeague, currentGroup);
+        const gd = DATA[currentLocation][currentLeague].groups[currentGroup];
+        if (!gd.fixtures[week]) gd.fixtures[week] = [];
+
+        const entry = { team1, team2 };
+        if (time) entry.time = time;
+        gd.fixtures[week].push(entry);
+        markDirty();
+        renderContent();
+        toast('Fixture added for Week ' + week);
+    }
+
+    function removeFixture(week, team1, team2) {
+        const gd = DATA[currentLocation][currentLeague].groups[currentGroup];
+        if (!gd.fixtures[week]) return;
+        gd.fixtures[week] = gd.fixtures[week].filter(f => !(f.team1 === team1 && f.team2 === team2));
+        if (gd.fixtures[week].length === 0) delete gd.fixtures[week];
+        markDirty();
+        renderContent();
+        toast('Fixture removed');
+    }
+
+    // =========================================================================
+    // RESULTS PANEL
+    // =========================================================================
+
+    function renderResultsPanel(results) {
         let rows = '';
         let count = 0;
         const weeks = Object.keys(results).sort((a, b) => a - b);
@@ -533,6 +868,7 @@
                     <td class="score-cell">${r.score2}</td>
                     <td class="team-cell" style="${!t1Win ? 'color:#a3e635' : ''}">${r.team2}</td>
                     <td class="muted">${r.sets}</td>
+                    <td><button class="btn btn-danger" onclick="removeResult('${w}', '${r.team1.replace(/'/g,"\\'")}', '${r.team2.replace(/'/g,"\\'")}')">X</button></td>
                 </tr>`;
             }
         }
@@ -543,47 +879,167 @@
                 <span class="panel-count">${count} results</span>
             </div>
             <div class="panel-body">
-                <table class="data-table">
-                    <thead><tr><th>Wk</th><th>Team 1</th><th colspan="3">Score</th><th>Team 2</th><th>Sets</th></tr></thead>
+                ${count > 0 ? `<table class="data-table">
+                    <thead><tr><th>Wk</th><th>Team 1</th><th colspan="3">Score</th><th>Team 2</th><th>Sets</th><th></th></tr></thead>
                     <tbody>${rows}</tbody>
-                </table>
+                </table>` : '<div class="empty-state">No results recorded yet</div>'}
             </div>
         </div>`;
     }
 
-    // ---- Submit form (disabled) ----
-    function renderSubmitForm(teams, fixtures) {
-        const teamOptions = teams.map(t => `<option value="${t}">${t}</option>`).join('');
-        const weekOptions = fixtures ? Object.keys(fixtures).map(w => `<option value="${w}">Week ${w}</option>`).join('') : '';
+    function renderAddResultForm(teams, fixtures, results) {
+        // Build list of unplayed fixtures
+        const pending = [];
+        for (const w in fixtures) {
+            for (const f of fixtures[w]) {
+                const hasResult = results?.[w]?.some(r =>
+                    (r.team1 === f.team1 && r.team2 === f.team2) ||
+                    (r.team1 === f.team2 && r.team2 === f.team1)
+                );
+                if (!hasResult) {
+                    pending.push({ week: w, team1: f.team1, team2: f.team2 });
+                }
+            }
+        }
 
-        return `<div class="submit-form">
-            <div class="form-title">Submit Result</div>
-            <div class="form-row">
-                <label>Week</label>
-                <select class="form-select" disabled>${weekOptions}</select>
+        if (pending.length === 0 && Object.keys(fixtures).length > 0) {
+            return '<div class="empty-state" style="margin-bottom:1.5rem">All fixtures have results</div>';
+        }
+        if (teams.length < 2) return '';
+
+        const fixtureOptions = pending.map((p, i) =>
+            `<option value="${i}">W${p.week}: ${p.team1} vs ${p.team2}</option>`
+        ).join('');
+
+        return `<div class="panel">
+            <div class="panel-header">
+                <span class="panel-title">Add Result</span>
+                <span class="panel-count">${pending.length} pending</span>
             </div>
-            <div class="form-row">
-                <label>Team 1</label>
-                <select class="form-select" disabled>${teamOptions}</select>
-                <label>Score</label>
-                <input class="form-input" type="number" value="0" disabled>
+            <div class="panel-body">
+                ${pending.length > 0 ? `
+                <div class="form-row">
+                    <label>Match</label>
+                    <select class="form-select" id="res-fixture" onchange="onFixtureSelect()">${fixtureOptions}</select>
+                </div>` : `
+                <div class="form-row">
+                    <label>Week</label>
+                    <input class="form-input form-input-narrow" type="number" id="res-week" min="1" value="1">
+                </div>
+                <div class="form-row">
+                    <label>Team 1</label>
+                    <select class="form-select" id="res-team1">${teams.map(t => `<option value="${t}">${t}</option>`).join('')}</select>
+                </div>
+                <div class="form-row">
+                    <label>Team 2</label>
+                    <select class="form-select" id="res-team2">${teams.map(t => `<option value="${t}">${t}</option>`).join('')}</select>
+                </div>`}
+                <div class="form-row">
+                    <label>Score 1</label>
+                    <input class="form-input form-input-narrow" type="number" id="res-score1" min="0" max="3" value="0">
+                    <label>Score 2</label>
+                    <input class="form-input form-input-narrow" type="number" id="res-score2" min="0" max="3" value="0">
+                </div>
+                <div class="form-row">
+                    <label>Sets</label>
+                    <input class="form-input form-input-wide" type="text" id="res-sets" placeholder="e.g. 6-3, 4-6, 6-2">
+                </div>
+                <div class="form-row">
+                    <label>Date</label>
+                    <input class="form-input form-input-wide" type="text" id="res-date" placeholder="e.g. Thu 5th Feb 21:30">
+                </div>
+                <button class="btn btn-primary" onclick="addResult()">Add Result</button>
             </div>
-            <div class="form-row">
-                <label>Team 2</label>
-                <select class="form-select" disabled>${teamOptions}</select>
-                <label>Score</label>
-                <input class="form-input" type="number" value="0" disabled>
-            </div>
-            <div class="form-row">
-                <label>Sets</label>
-                <input class="form-select" type="text" placeholder="e.g. 6-3, 4-6, 6-2" disabled>
-            </div>
-            <button class="form-btn" disabled>Submit Result</button>
-            <div class="disabled-note">Connect Firebase or Supabase in js/config.js to enable result submission.</div>
         </div>`;
+
+        // Store pending data for reference
+        window._pendingFixtures = pending;
     }
 
-    // ---- Init ----
+    // Store pending fixtures globally for the form
+    window._pendingFixtures = [];
+
+    function addResult() {
+        let week, team1, team2;
+
+        const fixtureSelect = document.getElementById('res-fixture');
+        if (fixtureSelect) {
+            const idx = parseInt(fixtureSelect.value);
+            // Recalculate pending to get correct values
+            const gd = DATA[currentLocation][currentLeague].groups[currentGroup];
+            const pending = [];
+            for (const w in gd.fixtures) {
+                for (const f of gd.fixtures[w]) {
+                    const hasResult = gd.results?.[w]?.some(r =>
+                        (r.team1 === f.team1 && r.team2 === f.team2) ||
+                        (r.team1 === f.team2 && r.team2 === f.team1)
+                    );
+                    if (!hasResult) pending.push({ week: w, team1: f.team1, team2: f.team2 });
+                }
+            }
+            if (!pending[idx]) { toast('Select a fixture'); return; }
+            week = pending[idx].week;
+            team1 = pending[idx].team1;
+            team2 = pending[idx].team2;
+        } else {
+            week = document.getElementById('res-week').value;
+            team1 = document.getElementById('res-team1').value;
+            team2 = document.getElementById('res-team2').value;
+        }
+
+        const score1 = parseInt(document.getElementById('res-score1').value);
+        const score2 = parseInt(document.getElementById('res-score2').value);
+        const sets = document.getElementById('res-sets').value.trim();
+        const date = document.getElementById('res-date').value.trim();
+
+        if (!week || !team1 || !team2) { toast('Select a fixture'); return; }
+        if (isNaN(score1) || isNaN(score2)) { toast('Enter valid scores'); return; }
+        if (!sets) { toast('Enter set scores'); return; }
+
+        ensureGroupData(currentLocation, currentLeague, currentGroup);
+        const gd = DATA[currentLocation][currentLeague].groups[currentGroup];
+        if (!gd.results) gd.results = {};
+        if (!gd.results[week]) gd.results[week] = [];
+
+        gd.results[week].push({ team1, team2, score1, score2, sets, date: date || '' });
+        markDirty();
+        renderContent();
+        toast('Result added');
+    }
+
+    function removeResult(week, team1, team2) {
+        const gd = DATA[currentLocation][currentLeague].groups[currentGroup];
+        if (!gd.results?.[week]) return;
+        gd.results[week] = gd.results[week].filter(r => !(r.team1 === team1 && r.team2 === team2));
+        if (gd.results[week].length === 0) delete gd.results[week];
+        markDirty();
+        renderContent();
+        toast('Result removed');
+    }
+
+    // =========================================================================
+    // EXPORT / DOWNLOAD
+    // =========================================================================
+
+    function downloadJSON() {
+        const json = JSON.stringify(DATA, null, 4);
+        const blob = new Blob([json], { type: 'application/json' });
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = 'league-data.json';
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+        URL.revokeObjectURL(url);
+        markClean();
+        toast('JSON downloaded - replace data/league-data.json to save');
+    }
+
+    // =========================================================================
+    // INIT
+    // =========================================================================
+
     async function init() {
         renderProviderStatus();
         try {
@@ -597,6 +1053,14 @@
                 '<div class="empty-state">Failed to load data: ' + err.message + '</div>';
         }
     }
+
+    // Warn about unsaved changes
+    window.addEventListener('beforeunload', function(e) {
+        if (hasUnsavedChanges) {
+            e.preventDefault();
+            e.returnValue = '';
+        }
+    });
 
     init();
     </script>

@@ -1,0 +1,66 @@
+{
+    "carryduff": {
+        "winter-2026": {
+            "schedule": [
+                { "week": 1, "dates": "2<sup>nd</sup> to 8<sup>th</sup> Feb", "deadline": "Friday 13<sup>th</sup> Feb" },
+                { "week": 2, "dates": "9<sup>th</sup> to 15<sup>th</sup> Feb", "deadline": "Friday 20<sup>th</sup> Feb" },
+                { "week": 3, "dates": "16<sup>th</sup> to 22<sup>nd</sup> Feb", "deadline": "Friday 27<sup>th</sup> Feb" },
+                { "week": 4, "dates": "23<sup>rd</sup> Feb to 1<sup>st</sup> March", "deadline": "Friday 6<sup>th</sup> March" },
+                { "week": 5, "dates": "2<sup>nd</sup> to 8<sup>th</sup> March", "deadline": "Sunday 8<sup>th</sup> March" },
+                { "week": 6, "dates": "9<sup>th</sup> to 15<sup>th</sup> March", "deadline": "Sunday 15<sup>th</sup> March", "finals": true }
+            ],
+            "groups": {
+                "A": {
+                    "teams": [
+                        "James Harris / Lewis Deane",
+                        "Adam Simms / Thomas Armstrong",
+                        "Angus Boyle / Callum Mackie",
+                        "Jack Lavery / James McKiver",
+                        "Chris Moffett / Kevin O'Hare",
+                        "Pete Boyle / Brian Dawson"
+                    ],
+                    "fixtures": {
+                        "1": [
+                            { "team1": "James Harris / Lewis Deane", "team2": "Adam Simms / Thomas Armstrong" },
+                            { "team1": "Angus Boyle / Callum Mackie", "team2": "Pete Boyle / Brian Dawson" },
+                            { "team1": "Jack Lavery / James McKiver", "team2": "Chris Moffett / Kevin O'Hare", "time": "Thu 5th Feb | 21:30" }
+                        ],
+                        "2": [
+                            { "team1": "James Harris / Lewis Deane", "team2": "Chris Moffett / Kevin O'Hare" },
+                            { "team1": "Pete Boyle / Brian Dawson", "team2": "Jack Lavery / James McKiver", "time": "Wed 19th Feb | 20:30 | Court 5" },
+                            { "team1": "Adam Simms / Thomas Armstrong", "team2": "Angus Boyle / Callum Mackie" }
+                        ],
+                        "3": [
+                            { "team1": "James Harris / Lewis Deane", "team2": "Jack Lavery / James McKiver", "time": "Sat 15th Feb | 09:00-10:30 | Court 5" },
+                            { "team1": "Chris Moffett / Kevin O'Hare", "team2": "Angus Boyle / Callum Mackie" },
+                            { "team1": "Pete Boyle / Brian Dawson", "team2": "Adam Simms / Thomas Armstrong" }
+                        ],
+                        "4": [
+                            { "team1": "James Harris / Lewis Deane", "team2": "Angus Boyle / Callum Mackie" },
+                            { "team1": "Jack Lavery / James McKiver", "team2": "Adam Simms / Thomas Armstrong" },
+                            { "team1": "Chris Moffett / Kevin O'Hare", "team2": "Pete Boyle / Brian Dawson" }
+                        ],
+                        "5": [
+                            { "team1": "James Harris / Lewis Deane", "team2": "Pete Boyle / Brian Dawson" },
+                            { "team1": "Adam Simms / Thomas Armstrong", "team2": "Chris Moffett / Kevin O'Hare" },
+                            { "team1": "Angus Boyle / Callum Mackie", "team2": "Jack Lavery / James McKiver" }
+                        ]
+                    },
+                    "results": {
+                        "1": [
+                            {
+                                "team1": "Jack Lavery / James McKiver",
+                                "team2": "Chris Moffett / Kevin O'Hare",
+                                "score1": 0, "score2": 3,
+                                "sets": "6-0, 6-0, 6-0",
+                                "date": "Thu 5th Feb 21:30"
+                            }
+                        ]
+                    }
+                },
+                "B": null,
+                "C": null
+            }
+        }
+    }
+}

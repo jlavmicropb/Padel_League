@@ -264,6 +264,13 @@
         .form-input-narrow { width: 60px; text-align: center; }
         .form-input-wide { flex: 1; min-width: 200px; }
 
+        .set-scores-grid { padding: 0.4rem 0; }
+        .set-scores-grid > label { font-size: 0.75rem; color: #999; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 0.4rem; display: block; }
+        .set-inputs { display: flex; gap: 0.75rem; flex-wrap: wrap; }
+        .set-pair { display: flex; align-items: center; gap: 0.35rem; }
+        .set-label { font-size: 0.7rem; color: #666; white-space: nowrap; }
+        .set-input { width: 55px; text-align: center; padding: 0.35rem 0.25rem; }
+
         .btn {
             padding: 0.5rem 1.5rem;
             border: 1px solid;
@@ -920,7 +927,7 @@
     }
 
     function renderAddResultForm(teams, fixtures, results) {
-        // Build list of unplayed fixtures
+        // Build list of unplayed fixtures, including time info from fixture data
         const pending = [];
         for (const w in fixtures) {
             for (const f of fixtures[w]) {
@@ -929,7 +936,7 @@
                     (r.team1 === f.team2 && r.team2 === f.team1)
                 );
                 if (!hasResult) {
-                    pending.push({ week: w, team1: f.team1, team2: f.team2 });
+                    pending.push({ week: w, team1: f.team1, team2: f.team2, time: f.time || '' });
                 }
             }
         }
@@ -939,9 +946,12 @@
         }
         if (teams.length < 2) return '';
 
-        const fixtureOptions = pending.map((p, i) =>
-            `<option value="${i}">W${p.week}: ${p.team1} vs ${p.team2}</option>`
-        ).join('');
+        const fixtureOptions = pending.map((p, i) => {
+            const timeHint = p.time ? ` (${p.time})` : '';
+            return `<option value="${i}">W${p.week}: ${p.team1} vs ${p.team2}${timeHint}</option>`;
+        }).join('');
+
+        const dateVal = pending.length > 0 && pending[0].time ? pending[0].time : '';
 
         return `<div class="panel collapsed">
             <div class="panel-header" onclick="togglePanel(this)">
@@ -967,19 +977,18 @@
                     <label>Team 2</label>
                     <select class="form-select" id="res-team2">${teams.map(t => `<option value="${t}">${t}</option>`).join('')}</select>
                 </div>`}
-                <div class="form-row">
-                    <label>Score 1</label>
-                    <input class="form-input form-input-narrow" type="number" id="res-score1" min="0" max="3" value="0">
-                    <label>Score 2</label>
-                    <input class="form-input form-input-narrow" type="number" id="res-score2" min="0" max="3" value="0">
-                </div>
-                <div class="form-row">
+                <div class="set-scores-grid">
                     <label>Sets</label>
-                    <input class="form-input form-input-wide" type="text" id="res-sets" placeholder="e.g. 6-3, 4-6, 6-2">
+                    <div class="set-inputs">
+                        <div class="set-pair"><span class="set-label">Set 1</span><input class="form-input set-input" type="text" id="res-set1" placeholder="6-3"></div>
+                        <div class="set-pair"><span class="set-label">Set 2</span><input class="form-input set-input" type="text" id="res-set2" placeholder="4-6"></div>
+                        <div class="set-pair"><span class="set-label">Set 3</span><input class="form-input set-input" type="text" id="res-set3" placeholder="6-2"></div>
+                    </div>
                 </div>
+                <div class="form-row" id="res-score-preview" style="color:#666; font-size:0.8rem; padding:0.25rem 0;"></div>
                 <div class="form-row">
-                    <label>Date</label>
-                    <input class="form-input form-input-wide" type="text" id="res-date" placeholder="e.g. Thu 5th Feb 21:30">
+                    <label>Date / Time</label>
+                    <input class="form-input form-input-wide" type="text" id="res-date" value="${dateVal}" placeholder="e.g. Thu 5th Feb 21:30">
                 </div>
                 <button class="btn btn-primary" onclick="addResult()">Add Result</button>
             </div>
@@ -992,24 +1001,85 @@
     // Store pending fixtures globally for the form
     window._pendingFixtures = [];
 
+    function getPendingFixtures() {
+        const gd = DATA[currentLocation]?.[currentLeague]?.groups?.[currentGroup];
+        if (!gd) return [];
+        const pending = [];
+        for (const w in gd.fixtures) {
+            for (const f of gd.fixtures[w]) {
+                const hasResult = gd.results?.[w]?.some(r =>
+                    (r.team1 === f.team1 && r.team2 === f.team2) ||
+                    (r.team1 === f.team2 && r.team2 === f.team1)
+                );
+                if (!hasResult) pending.push({ week: w, team1: f.team1, team2: f.team2, time: f.time || '' });
+            }
+        }
+        return pending;
+    }
+
+    function onFixtureSelect() {
+        const sel = document.getElementById('res-fixture');
+        if (!sel) return;
+        const pending = getPendingFixtures();
+        const p = pending[parseInt(sel.value)];
+        const dateInput = document.getElementById('res-date');
+        if (dateInput && p) {
+            dateInput.value = p.time || '';
+        }
+    }
+
+    function parseSets() {
+        const s1 = (document.getElementById('res-set1')?.value || '').trim();
+        const s2 = (document.getElementById('res-set2')?.value || '').trim();
+        const s3 = (document.getElementById('res-set3')?.value || '').trim();
+        const setRegex = /^(\d+)\s*[-–]\s*(\d+)$/;
+        const sets = [];
+        let score1 = 0, score2 = 0;
+        for (const s of [s1, s2, s3]) {
+            if (!s) continue;
+            const m = s.match(setRegex);
+            if (!m) return null;
+            const a = parseInt(m[1]), b = parseInt(m[2]);
+            sets.push(`${a}-${b}`);
+            if (a > b) score1++;
+            else if (b > a) score2++;
+        }
+        if (sets.length === 0) return null;
+        return { score1, score2, setsStr: sets.join(', '), count: sets.length };
+    }
+
+    function updateScorePreview() {
+        const preview = document.getElementById('res-score-preview');
+        if (!preview) return;
+        const result = parseSets();
+        if (!result) { preview.textContent = ''; return; }
+
+        // Get team names for display
+        let t1 = 'Team 1', t2 = 'Team 2';
+        const sel = document.getElementById('res-fixture');
+        if (sel) {
+            const pending = getPendingFixtures();
+            const p = pending[parseInt(sel.value)];
+            if (p) { t1 = p.team1.split(' / ')[0]; t2 = p.team2.split(' / ')[0]; }
+        }
+        const winner = result.score1 > result.score2 ? t1 : result.score2 > result.score1 ? t2 : 'Draw';
+        preview.textContent = `Score: ${result.score1} - ${result.score2} → ${winner} wins (${result.setsStr})`;
+    }
+
+    // Attach live preview via event delegation
+    document.addEventListener('input', function(e) {
+        if (e.target.id === 'res-set1' || e.target.id === 'res-set2' || e.target.id === 'res-set3') {
+            updateScorePreview();
+        }
+    });
+
     function addResult() {
         let week, team1, team2;
 
         const fixtureSelect = document.getElementById('res-fixture');
         if (fixtureSelect) {
             const idx = parseInt(fixtureSelect.value);
-            // Recalculate pending to get correct values
-            const gd = DATA[currentLocation][currentLeague].groups[currentGroup];
-            const pending = [];
-            for (const w in gd.fixtures) {
-                for (const f of gd.fixtures[w]) {
-                    const hasResult = gd.results?.[w]?.some(r =>
-                        (r.team1 === f.team1 && r.team2 === f.team2) ||
-                        (r.team1 === f.team2 && r.team2 === f.team1)
-                    );
-                    if (!hasResult) pending.push({ week: w, team1: f.team1, team2: f.team2 });
-                }
-            }
+            const pending = getPendingFixtures();
             if (!pending[idx]) { toast('Select a fixture'); return; }
             week = pending[idx].week;
             team1 = pending[idx].team1;
@@ -1020,21 +1090,19 @@
             team2 = document.getElementById('res-team2').value;
         }
 
-        const score1 = parseInt(document.getElementById('res-score1').value);
-        const score2 = parseInt(document.getElementById('res-score2').value);
-        const sets = document.getElementById('res-sets').value.trim();
+        const result = parseSets();
+        if (!result || result.count === 0) { toast('Enter at least one set score (e.g. 6-3)'); return; }
+        const { score1, score2, setsStr } = result;
         const date = document.getElementById('res-date').value.trim();
 
         if (!week || !team1 || !team2) { toast('Select a fixture'); return; }
-        if (isNaN(score1) || isNaN(score2)) { toast('Enter valid scores'); return; }
-        if (!sets) { toast('Enter set scores'); return; }
 
         ensureGroupData(currentLocation, currentLeague, currentGroup);
         const gd = DATA[currentLocation][currentLeague].groups[currentGroup];
         if (!gd.results) gd.results = {};
         if (!gd.results[week]) gd.results[week] = [];
 
-        gd.results[week].push({ team1, team2, score1, score2, sets, date: date || '' });
+        gd.results[week].push({ team1, team2, score1, score2, sets: setsStr, date: date || '' });
         markDirty();
         renderContent();
         toast('Result added');

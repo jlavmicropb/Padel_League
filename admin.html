@@ -348,7 +348,10 @@
         .fixture-row:last-child { border-bottom: none; }
         .fixture-teams-admin { font-weight: 600; text-transform: uppercase; font-size: 0.8rem; }
         .fixture-vs-admin { color: #a3e635; font-weight: 700; margin: 0 0.5rem; }
-        .fixture-time-admin { color: #666; font-size: 0.75rem; }
+        .fixture-time-admin { color: #666; font-size: 0.75rem; cursor: pointer; border-bottom: 1px dashed #555; }
+        .fixture-time-admin:hover { color: #a3e635; border-color: #a3e635; }
+        .fixture-add-time { color: #555; font-size: 0.7rem; cursor: pointer; border: 1px dashed #444; border-radius: 4px; padding: 0.1rem 0.4rem; }
+        .fixture-add-time:hover { color: #a3e635; border-color: #a3e635; }
 
         .tag {
             display: inline-block;
@@ -803,13 +806,18 @@
                     (r.team1 === f.team2 && r.team2 === f.team1)
                 );
                 if (hasResult) totalResults++;
+                const t1Esc = f.team1.replace(/'/g,"\\'");
+                const t2Esc = f.team2.replace(/'/g,"\\'");
+                const timeBtn = f.time
+                    ? `<span class="fixture-time-admin" onclick="editFixtureTime('${w}','${t1Esc}','${t2Esc}')" title="Click to edit">${f.time}</span>`
+                    : `<span class="fixture-add-time" onclick="editFixtureTime('${w}','${t1Esc}','${t2Esc}')" title="Add time &amp; location">+ time</span>`;
                 rows += `<div class="fixture-row">
                     <span class="schedule-week">W${w}</span>
                     <span class="fixture-teams-admin">${f.team1} <span class="fixture-vs-admin">vs</span> ${f.team2}</span>
                     <span style="display:flex;gap:0.5rem;align-items:center">
-                        ${f.time ? '<span class="fixture-time-admin">' + f.time + '</span>' : ''}
+                        ${timeBtn}
                         ${hasResult ? '<span class="tag tag-done">Played</span>' : '<span class="tag tag-pending">Pending</span>'}
-                        <button class="btn btn-danger" onclick="removeFixture('${w}', '${f.team1.replace(/'/g,"\\'")}', '${f.team2.replace(/'/g,"\\'")}')">X</button>
+                        <button class="btn btn-danger" onclick="removeFixture('${w}', '${t1Esc}', '${t2Esc}')">X</button>
                     </span>
                 </div>`;
             }
@@ -884,6 +892,24 @@
         markDirty();
         renderContent();
         toast('Fixture removed');
+    }
+
+    function editFixtureTime(week, team1, team2) {
+        const gd = DATA[currentLocation][currentLeague].groups[currentGroup];
+        if (!gd.fixtures?.[week]) return;
+        const fixture = gd.fixtures[week].find(f => f.team1 === team1 && f.team2 === team2);
+        if (!fixture) return;
+        const current = fixture.time || '';
+        const val = prompt('Enter time & location for this fixture:\ne.g. "Thu 5th Feb | 21:30 | Court 5"', current);
+        if (val === null) return; // cancelled
+        if (val.trim() === '') {
+            delete fixture.time;
+        } else {
+            fixture.time = val.trim();
+        }
+        markDirty();
+        renderContent();
+        toast(val.trim() ? 'Fixture time updated' : 'Fixture time removed');
     }
 
     // =========================================================================

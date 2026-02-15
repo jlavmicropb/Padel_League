@@ -740,6 +740,11 @@
                 </section>
             </div>
         </div>
+
+        <!-- Admin link -->
+        <div style="text-align:center; margin-top:2rem; padding:1rem;">
+            <a href="admin.html" style="color:#555; font-size:0.75rem; text-decoration:none; letter-spacing:1px; text-transform:uppercase;">Admin</a>
+        </div>
     </div>
 
     <!-- Data service: config + abstraction layer -->
@@ -984,7 +989,7 @@
         for (const g of groups) {
             const groupData = carryduffWinter.groups[g];
 
-            if (!groupData) {
+            if (!groupData || !groupData.teams || groupData.teams.length === 0) {
                 // No data for this group - show coming soon
                 document.getElementById('carryduff-teams-' + g).innerHTML = comingSoonHTML('Group ' + g);
                 document.getElementById('carryduff-fixtures-' + g).innerHTML = comingSoonHTML('Group ' + g + ' Fixtures');

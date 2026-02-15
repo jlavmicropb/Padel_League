@@ -55,11 +55,19 @@
                                 "sets": "6-0, 6-0, 6-0",
                                 "date": "Thu 5th Feb 21:30"
                             }
+                        ],
+                        "3": [
+                            {
+                                "team1": "James Harris / Lewis Deane",
+                                "team2": "Jack Lavery / James McKiver",
+                                "score1": 3, "score2": 0,
+                                "sets": "7-5, 6-0, 6-0"
+                            }
                         ]
                     }
                 },
-                "B": null,
-                "C": null
+                "B": { "teams": [], "fixtures": {}, "results": {} },
+                "C": { "teams": [], "fixtures": {}, "results": {} }
             }
         }
     }
